@@ -1,0 +1,78 @@
+@use '../utils/mixins' as *;
+@use '../utils/variables' as *;
+
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100vh;
+    z-index: 9999;
+    padding: 40px 12px 40px 24px;
+    background-color: rgb(30, 30, 30);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom-left-radius: 16px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+
+    @include tablet {
+        padding: 40px 18px 60px 36px;
+    }
+
+    &.open {
+        transform: translateX(0);;
+    }
+
+    &__close-btn {
+        position: absolute;
+        top: 8px;
+        left: 4px;
+        color: rgb(210, 210, 119);
+
+        @include tablet {
+            top: 12px;
+            left: 8px;
+        }
+        
+        &-icon {
+            width: 32px;
+            height: 32px;
+
+            @include tablet {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}
+
+.drawer__favorites-container {
+    & .home-page__favorite-title {
+        font-size: 1.3rem;
+
+        @include tablet {
+            font-size: 1.6rem;
+        }
+    }
+
+    & .home-page__favorite-list {
+        max-height: calc(100vh - 120px);
+    }
+
+    & .home-page__favorite-item-img {
+        width: 75px;
+        height: 75px;
+
+        @include tablet {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    & .home-page__favorite-item-text {
+        @include tablet {
+            font-size: 1.2rem;
+        }
+    }
+}

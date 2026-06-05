@@ -1,0 +1,40 @@
+@use '../utils/mixins' as *;
+@use '../utils/variables' as *;
+
+.footer {
+    background: #090909; 
+    border-top: 1px solid rgba(255, 255, 255, 0.03); 
+    padding: 24px 0; 
+    margin-top: auto; 
+
+    @include tablet {
+        padding: 30px 0;
+    }
+
+    &__container {
+        @include container; 
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+    }
+
+    &__text {
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        @include tablet {
+            font-size: 1rem;
+        }
+    }
+
+    &__copy {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.4); 
+
+        @include tablet {
+            font-size: 0.85rem;
+        }
+    }
+}
