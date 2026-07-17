@@ -55,9 +55,7 @@ export const fetchGameDetails = async(id : string): Promise<GameDetails | undefi
     }
 };
 
-
-
-
+// Інший варіант синтаксису
 // export const fetchGames = async (searchQuery: string = '', genreSlug: string = ''): Promise<Game[]> => {
 //     const params = new URLSearchParams({
 //         key: import.meta.env.VITE_RAWG_API_KEY,
