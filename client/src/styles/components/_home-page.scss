@@ -14,164 +14,8 @@
         padding-bottom: 32px;
     }
 
-    &__hero {
-        width: 100%;
-        background: linear-gradient(
-            to bottom, 
-            #090909 0%, 
-            rgba(0, 0, 0, 0.4) 15%, 
-            $bg-color 100%
-        ), url('../../assets/bg-image.jpg');
-        height: 30vh;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        padding: 80px 24px 32px;
-
-        @include tablet {
-            background-position: center 15%;
-            height: 34vh;
-            padding: 100px 24px 36px;
-        }
-
-        @include desktop {
-            height: 40vh;
-            gap: 20px;
-            background-position: top;
-            padding: 24px;
-        }
-    }
-
-    &__hero-title {
-        font-size: 2.2rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-
-        @include tablet {
-            font-size: 2.7rem;
-        }
-
-        @include desktop {
-           font-size: 3.5rem;
-        }
-    }
-
-    &__search-input {
-        width: 100%;
-        padding: 12px;
-        font-size: 1.1rem;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: rgba(0, 0, 0, 0.6);
-        max-width: 400px;
-        color: $white;
-        outline: none;
-
-        &:focus {
-            border-color: $white;
-        }
-
-        @include tablet {
-            max-width: 500px;
-            padding: 12px 16px;
-            font-size: 1.3rem;
-        }
-
-        @include desktop {
-            max-width: 600px;
-            padding: 12px 18px;
-            font-size: 1.5rem;
-        }
-    }
-
     &__container {
         @include container;
-    }
-
-    &__genres-search {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 10px;
-        width: 100%;
-        padding: 6px 8px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        overflow-x: auto; 
-        scroll-snap-type: x mandatory; 
-        -webkit-overflow-scrolling: touch;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        @include desktop {
-            flex-wrap: wrap;
-            justify-content: center;
-            overflow-x: visible;
-        }
-    }
-
-    &__genre-item {
-        width: calc(45% - 8px);
-        height: 120px;
-        flex-shrink: 0;
-        border-radius: 12px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-
-        @include tablet {
-            height: 140px;
-            width: calc(30% - 8px);
-        }
-        
-        @include desktop {
-            width: 108px;
-            height: 100px;
-            transition: all 0.5s;
-            transform: translateY(0);
-
-            &:hover {
-                transform:translateY(-5px);
-            }
-        }
-
-        @include large-desktop {
-            width: 128px;
-            height: 108px;
-            transition: all 0.5s;
-            transform: translateY(0);
-        }
-    }
-
-    &__genre-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 12px;
-        object-fit: cover;
-    }
-
-    &__genre-title {
-        position: absolute;
-        color: inherit;
-        font-size: 1.2rem;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-shadow: 4px 4px 6px rgba(0,0,0,0.8);
-
-        @include tablet {
-            font-size: 1.5rem;
-        }
-
-        @include desktop {
-            font-size: 1.2rem;
-        }
     }
 
     &__main-layout {
@@ -205,104 +49,6 @@
                 margin: 0;
                 padding: 0 10px 0;
                 flex-direction: column;
-            }
-        }
-    }
-
-    &__sort {
-        position: relative;
-        width: 100%;
-        user-select: none;
-
-        &-container {
-            width: 100%;
-            padding: 12px 16px 12px 40px; 
-            font-size: 1rem;
-            color: $white;
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s;
-
-            @include tablet {
-                padding: 16px 20px 16px 44px;
-                font-size: 1.2rem;
-            }
-
-            @include desktop {
-                padding: 12px 16px 12px 40px; 
-                font-size: 1rem;
-            }
-
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.06);
-                border-color: rgba(255, 255, 255, 0.2);
-            }
-        }
-
-        &-icon {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.5);
-            transform: rotate(0);
-            transition: transform 0.3s ease;
-
-            @include tablet {
-                font-size: 1.5rem;
-            }
-
-            @include desktop {
-                font-size: 1.3rem;
-            }
-
-            &.open {
-                transform: rotateX(180deg);
-                color: rgb(210, 210, 119);
-            }
-        }
-
-        &-options {
-            position: absolute;
-            top: calc(100% + 6px); 
-            left: 0;
-            width: 100%;
-            background-color: #1a1a1a; 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            z-index: 10; 
-            overflow: hidden;
-        }
-
-        &-option {
-            padding: 12px 16px;
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.8);
-            cursor: pointer;
-            transition: all 0.2s ease;
-
-            @include tablet {
-                padding: 16px 20px;
-                font-size: 1.2rem;
-            }
-
-            @include desktop {
-                padding: 12px 16px;
-                font-size: 0.95rem;
-            }
-
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.05);
-                color: $white;
-            }
-
-            &.selected {
-                color: rgb(210, 210, 119);
-                background-color: rgba(210, 210, 119, 0.05);
-                font-weight: 600;
             }
         }
     }
@@ -342,7 +88,7 @@
 
         @include desktop {
             display: block;
-            background: rgba(255, 255, 255, 0.03); 
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 20px 16px;
@@ -358,10 +104,10 @@
 
     &__favorite-list {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
         gap: 15px;
-        max-height: 450px; 
-        overflow-y: auto;  
+        max-height: 450px;
+        overflow-y: auto;
         padding-right: 5px;
         list-style: none;
         padding-left: 0;
@@ -398,24 +144,24 @@
         @include desktop {
             gap: 10px;
         }
-        
+
         &-img {
             width: 60px;
             height: 60px;
-            object-fit: cover; 
+            object-fit: cover;
             border-radius: 8px;
             flex-shrink: 0;
         }
 
         &-text {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: $white;
             text-align: left;
             width: 100%;
         }
 
         &:hover {
-            background: rgba(255, 255, 255, 0.1)
+            background: rgba(255, 255, 255, 0.1);
         }
 
         &-btn-del {
@@ -448,15 +194,16 @@
                 height: 32px;
             }
         }
-    }   
- 
+    }
+
     &__game-list {
         display: grid;
         padding: 14px 6px;
         grid-template-columns: repeat(2, 1fr);
         width: 100%;
+        min-height: 30vh;
         gap: 6px;
-        background-color: rgba(255, 255, 255, 0.03); 
+        background-color: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 12px;
 
@@ -469,15 +216,21 @@
         @include desktop {
             padding: 20px 16px;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+        }
+
+        .game-loader,
+        .error-banner,
+        .empty-state {
+            grid-column: 1 / -1;
+            justify-self: center;
         }
     }
 
     &__pagination {
         display: flex;
-        justify-content: center; 
+        justify-content: center;
         width: 100%;
-        margin-top: 24px; 
+        margin-top: 24px;
 
         @include tablet {
             margin-top: 32px;
@@ -513,4 +266,3 @@
     color: inherit;
     margin-bottom: 12px;
 }
-

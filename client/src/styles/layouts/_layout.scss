@@ -1,0 +1,24 @@
+@use '../utils/variables' as *;
+
+body {
+    background-color: $bg-body-color;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Special Gothic Expanded One', sans-serif;
+    color: $white;
+    min-height: 100vh;
+    overscroll-behavior: none;
+    background-attachment: fixed;
+}
+
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+}

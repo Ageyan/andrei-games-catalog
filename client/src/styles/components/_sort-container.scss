@@ -1,0 +1,100 @@
+@use '../utils/mixins' as *;
+@use '../utils/variables' as *;
+
+.sort {
+    position: relative;
+    width: 100%;
+    user-select: none;
+
+    &__container {
+        width: 100%;
+        padding: 12px 16px 12px 40px;
+        font-size: 1rem;
+        color: $white;
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+
+        @include tablet {
+            padding: 16px 20px 16px 44px;
+            font-size: 1.2rem;
+        }
+
+        @include desktop {
+            padding: 12px 16px 12px 40px;
+            font-size: 1rem;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    &__icon {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.5);
+        transform: rotate(0);
+        transition: transform 0.3s ease;
+
+        @include tablet {
+            font-size: 1.5rem;
+        }
+
+        @include desktop {
+            font-size: 1.3rem;
+        }
+
+        &.open {
+            transform: rotateX(180deg);
+            color: rgb(210, 210, 119);
+        }
+    }
+
+    &__options {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    &__option {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        @include tablet {
+            padding: 16px 20px;
+            font-size: 1.2rem;
+        }
+
+        @include desktop {
+            padding: 12px 16px;
+            font-size: 0.95rem;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: $white;
+        }
+
+        &.selected {
+            color: rgb(210, 210, 119);
+            background-color: rgba(210, 210, 119, 0.05);
+            font-weight: 600;
+        }
+    }
+}
