@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useParams } from 'react-router-dom';
 
 import type { GameDetails, GameScreenshot } from '../types/games.types';
 import { fetchGameDetails, fetchGamesScreenshots } from '../api/games';
 
-import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import Loader from '../components/Loader';
+import ModalScreenshot from '../components/ModalScreenshot';
+import Screenshots from '../components/Screenshots';
+import GamePageHero from '../components/GamePageHero';
+import axios from 'axios';
 
 const GameDetailsPage = () => {
     const [game, setGame] = useState<GameDetails | null>(null);
-    const [loader, setLoader] = useState(false);
+    const [loader, setLoader] = useState(true);
     const [screenshots, setScreenshots] = useState<GameScreenshot[]>([]);
     const [isModal, setIsModal] = useState<boolean>(false);
     const [activeSrc, setActiveSrc] = useState<string>('');
+    const [error, setError] = useState<string>('');
     const { id } = useParams();
 
     useEffect(() => {
@@ -24,25 +24,53 @@ const GameDetailsPage = () => {
 
         const getGame = async () => {
             setLoader(true);
+            setError('');
             try {
-                const res = await fetchGameDetails(`${id}`);
-                const res2 = await fetchGamesScreenshots(`${id}`);
+                const [resGame, resScreen] = await Promise.all([
+                    fetchGameDetails(`${id}`),
+                    fetchGamesScreenshots(`${id}`),
+                ]);
 
-                if (res) {
-                    setGame(res);
+                if (resGame) {
+                    setGame(resGame);
                 }
 
-                if (res2) {
-                    setScreenshots(res2);
+                if (resScreen) {
+                    setScreenshots(resScreen);
                 }
-            } catch (e) {
-                console.error(e);
+            } catch (err) {
+                let errorMessage = 'Error retrieving game data';
+                if (axios.isAxiosError(err)) {
+                    errorMessage =
+                        err.response?.data.message ||
+                        'An unknown error occurred';
+                }
+                setError(errorMessage);
             } finally {
                 setLoader(false);
             }
         };
         getGame();
     }, [id]);
+
+    useEffect(() => {
+        if (!isModal) return;
+
+        document.body.style.overflow = 'hidden';
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsModal(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.body.style.overflow = 'auto';
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isModal]);
 
     const handleModal = (src: string) => {
         setIsModal(true);
@@ -56,197 +84,107 @@ const GameDetailsPage = () => {
     };
 
     return (
-        <>
-            <div className="game-page">
-                {loader && <Loader gamePage={true} />}
-                {!loader && game && (
-                    <>
-                        <section
-                            className="game-page__hero"
-                            style={{
-                                backgroundImage: `url(${game.background_image})`,
-                            }}
-                        >
-                            <div className="game-page__hero-overlay">
-                                <div className="game-page__hero-container">
-                                    <Link
-                                        to="/"
-                                        className="game-page__back-btn"
-                                    >
-                                        <span>← Back to Catalog</span>
-                                    </Link>
-                                    <div className="game-page__hero-info">
-                                        <div className="game-page__genres">
-                                            {game.genres.map(genre => (
-                                                <span
-                                                    key={genre.id}
-                                                    className="game-page__genre-badge"
-                                                >
-                                                    {genre.name}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <h1 className="game-page__title">
-                                            {game.name}
-                                        </h1>
-                                        <div className="game-page__meta">
-                                            <span className="game-page__meta-item">
-                                                📅 {game.released}
-                                            </span>
-                                            <span className="game-page__meta-item">
-                                                ⭐ {game.rating} / 5
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <div className="game-page__content">
-                            <div className="game-page__screenshots-section">
-                                <h3 className="game-page__section-title">
-                                    Screenshots
-                                </h3>
-                                {screenshots.length > 0 ? (
-                                    <Swiper
-                                        modules={[Navigation, Pagination]}
-                                        navigation={true}
-                                        pagination={{ clickable: true }}
-                                        spaceBetween={20}
-                                        slidesPerView={3}
-                                        breakpoints={{
-                                            320: { slidesPerView: 1 },
-                                            768: { slidesPerView: 2 },
-                                            1200: { slidesPerView: 3 },
-                                        }}
-                                        className="game-page__swiper"
-                                    >
-                                        {screenshots.map(screenshot => (
-                                            <SwiperSlide key={screenshot.id}>
-                                                <div className="game-page__slide-inner">
-                                                    <img
-                                                        onClick={() =>
-                                                            handleModal(
-                                                                screenshot.image,
-                                                            )
-                                                        }
-                                                        src={screenshot.image}
-                                                        alt={`Скріншот з гри ${game.name}`}
-                                                        className="game-page__screenshot-img"
-                                                    />
-                                                </div>
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                ) : (
-                                    <p className="loader-text">
-                                        Завантаження скріншотів...
-                                    </p>
-                                )}
-                            </div>
-                            <div className="game-page__main-grid">
-                                <div className="game-page__description">
-                                    <h3 className="game-page__section-title">
-                                        About the Game
-                                    </h3>
-                                    <p className="game-page__text">
-                                        {game.description_raw}
-                                    </p>
-                                </div>
-                                <aside className="game-page__details-sidebar">
-                                    <h3 className="game-page__section-title">
-                                        Details
-                                    </h3>
-                                    <div className="game-page__detail-box">
-                                        {game.metacritic && (
-                                            <div className="game-page__detail-item metacritic">
-                                                <span className="game-page__detail-label">
-                                                    Metascore:
-                                                </span>
-                                                <span
-                                                    className={`game-page__meta-badge ${game.metacritic >= 75 ? 'good' : 'mixed'}`}
-                                                >
-                                                    {game.metacritic}
-                                                </span>
-                                            </div>
-                                        )}
-                                        <div className="game-page__detail-item">
-                                            <span className="game-page__detail-label">
-                                                Platforms:
-                                            </span>
-                                            <span className="game-page__detail-value">
-                                                {game.platforms
-                                                    ?.map(p => p.platform.name)
-                                                    .join(', ')}
-                                            </span>
-                                        </div>
-                                        <div className="game-page__detail-item">
-                                            <span className="game-page__detail-label">
-                                                Developer:
-                                            </span>
-                                            <span className="game-page__detail-value">
-                                                {game.developers
-                                                    ?.map(d => d.name)
-                                                    .join(', ')}
-                                            </span>
-                                        </div>
-                                        <div className="game-page__detail-item">
-                                            <span className="game-page__detail-label">
-                                                Publisher:
-                                            </span>
-                                            <span className="game-page__detail-value">
-                                                {game.publishers
-                                                    ?.map(p => p.name)
-                                                    .join(', ')}
-                                            </span>
-                                        </div>
-                                        {game.website && (
-                                            <div className="game-page__detail-item">
-                                                <span className="game-page__detail-label">
-                                                    Website:
-                                                </span>
-                                                <a
-                                                    href={game.website}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="game-page__link"
-                                                >
-                                                    Visit official site →
-                                                </a>
-                                            </div>
-                                        )}
-                                    </div>
-                                </aside>
-                            </div>
-                        </div>
-                    </>
-                )}
-
-                {!loader && !game && (
-                    <p className="game-page__loader-text">Game not found</p>
-                )}
-            </div>
-
-            {isModal && (
-                <div
-                    onClick={handleBackdropClick}
-                    className={`backdrop ${isModal ? '' : 'is-hidden'}`}
-                >
-                    <div className="modal">
-                        <img
-                            className="modal__img"
-                            src={activeSrc}
-                            alt="Game screenshot"
+        <div className="game-page">
+            {loader && <Loader gamePage={true} />}
+            {error && <div className="error-banner">{error}</div>}
+            {!loader && !error && game && (
+                <>
+                    <GamePageHero game={game} />
+                    <div className="game-page__content">
+                        <Screenshots
+                            screenshots={screenshots}
+                            game={game}
+                            handleModal={handleModal}
                         />
-                        <button
-                            className="modal__btn-close"
-                            onClick={() => setIsModal(false)}
-                        >
-                            X
-                        </button>
+                        <div className="game-page__main-grid">
+                            <div className="game-page__description">
+                                <h3 className="game-page__section-title">
+                                    About the Game
+                                </h3>
+                                <p className="game-page__text">
+                                    {game.description_raw}
+                                </p>
+                            </div>
+                            <aside className="game-page__details-sidebar">
+                                <h3 className="game-page__section-title">
+                                    Details
+                                </h3>
+                                <div className="game-page__detail-box">
+                                    {game.metacritic && (
+                                        <div className="game-page__detail-item metacritic">
+                                            <span className="game-page__detail-label">
+                                                Metascore:
+                                            </span>
+                                            <span
+                                                className={`game-page__meta-badge ${game.metacritic >= 75 ? 'good' : 'mixed'}`}
+                                            >
+                                                {game.metacritic}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className="game-page__detail-item">
+                                        <span className="game-page__detail-label">
+                                            Platforms:
+                                        </span>
+                                        <span className="game-page__detail-value">
+                                            {game.platforms
+                                                ?.map(p => p.platform.name)
+                                                .join(', ')}
+                                        </span>
+                                    </div>
+                                    <div className="game-page__detail-item">
+                                        <span className="game-page__detail-label">
+                                            Developer:
+                                        </span>
+                                        <span className="game-page__detail-value">
+                                            {game.developers
+                                                ?.map(d => d.name)
+                                                .join(', ')}
+                                        </span>
+                                    </div>
+                                    <div className="game-page__detail-item">
+                                        <span className="game-page__detail-label">
+                                            Publisher:
+                                        </span>
+                                        <span className="game-page__detail-value">
+                                            {game.publishers
+                                                ?.map(p => p.name)
+                                                .join(', ')}
+                                        </span>
+                                    </div>
+                                    {game.website && (
+                                        <div className="game-page__detail-item">
+                                            <span className="game-page__detail-label">
+                                                Website:
+                                            </span>
+                                            <a
+                                                href={game.website}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="game-page__link"
+                                            >
+                                                Visit official site →
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+                            </aside>
+                        </div>
                     </div>
-                </div>
+                </>
             )}
-        </>
+            {!loader && !game && (
+                <p className="game-page__loader-text">Game not found</p>
+            )}
+            {isModal && (
+                <ModalScreenshot
+                    isModal={isModal}
+                    setIsModal={setIsModal}
+                    activeSrc={activeSrc}
+                    handleBackdropClick={handleBackdropClick}
+                />
+            )}
+        </div>
     );
 };
 

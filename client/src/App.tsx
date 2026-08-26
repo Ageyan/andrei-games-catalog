@@ -9,16 +9,16 @@ const GameDetailsPage = lazy(() => import('./pages/GameDetailsPage'));
 
 function App() {
     return (
-        <MainLayout>
-            <BrowserRouter>
-                <Suspense fallback={<Loader fullSize={true} />}>
+        <BrowserRouter>
+            <Suspense fallback={<Loader fullSize={true} />}>
+                <MainLayout>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/game/:id" element={<GameDetailsPage />} />
                     </Routes>
-                </Suspense>
-            </BrowserRouter>
-        </MainLayout>
+                </MainLayout>
+            </Suspense>
+        </BrowserRouter>
     );
 }
 

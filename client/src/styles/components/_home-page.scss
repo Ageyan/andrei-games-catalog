@@ -239,9 +239,11 @@
 
     .show-btn {
         background: rgba(255, 255, 255, 0.05);
+        min-height: 60px;
+        width: 100%;
         color: $white;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 10px 26px;
+        padding: 8px 20px;
         border-radius: 16px;
         font-size: 1rem;
         cursor: pointer;
@@ -251,6 +253,8 @@
         @include tablet {
             font-size: 1.1rem;
             padding: 14px 32px;
+            width: auto;
+            min-width: 270px;
         }
 
         &:hover {
@@ -259,10 +263,4 @@
             transform: translateY(-5px);
         }
     }
-}
-
-.loader-text {
-    font-size: 1.2rem;
-    color: inherit;
-    margin-bottom: 12px;
 }

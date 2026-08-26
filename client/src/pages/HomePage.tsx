@@ -4,6 +4,7 @@ import axios from 'axios';
 import type { Game } from '../types/games.types';
 import { useFavorite } from '../context/FavoritesContext';
 import { fetchGames } from '../api/games';
+import { useDebounce } from '../hooks/useDebounce';
 
 import GameCard from '../components/GameCard';
 import FeaturedGamesList from '../components/FeaturedGamesList';
@@ -12,14 +13,14 @@ import GenresContainer from '../components/GenresContainer';
 import SortContainer from '../components/SortContainer';
 import Toast from '../components/Toast';
 import Loader from '../components/Loader';
+import HomeHeroSection from '../components/HomeHeroSection';
 
 import { FaStar } from 'react-icons/fa';
-import { useDebounce } from '../hooks/useDebounce';
-import HomeHeroSection from '../components/HomeHeroSection';
 
 const HomePage = () => {
     const [games, setGames] = useState<Game[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
+    const [btnLoader, setBtnLoader] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [selectedGenre, setSelectedGenre] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<string>('');
@@ -32,10 +33,15 @@ const HomePage = () => {
     const debounceSearchTerm = useDebounce(searchTerm, 500);
 
     useEffect(() => {
-        setLoader(true);
         setError('');
 
         const getGames = async () => {
+            if (page === 1) {
+                setLoader(true);
+            } else {
+                setBtnLoader(true);
+            }
+
             try {
                 const res = await fetchGames(
                     debounceSearchTerm,
@@ -63,6 +69,7 @@ const HomePage = () => {
                 setError(errorMessage);
             } finally {
                 setLoader(false);
+                setBtnLoader(false);
             }
         };
         getGames();
@@ -137,8 +144,13 @@ const HomePage = () => {
                                 <button
                                     className="show-btn"
                                     onClick={() => setPage(prev => prev + 1)}
+                                    disabled={btnLoader}
                                 >
-                                    Show more games...
+                                    {btnLoader ? (
+                                        <Loader btn={true} />
+                                    ) : (
+                                        'Show more games...'
+                                    )}
                                 </button>
                             </div>
                         )}

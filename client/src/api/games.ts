@@ -55,19 +55,6 @@ export const fetchGameDetails = async(id : string): Promise<GameDetails | undefi
     }
 };
 
-// Інший варіант синтаксису
-// export const fetchGames = async (searchQuery: string = '', genreSlug: string = ''): Promise<Game[]> => {
-//     const params = new URLSearchParams({
-//         key: import.meta.env.VITE_RAWG_API_KEY,
-//     });
-
-//     if (searchQuery) params.append('search', searchQuery);
-//     if (genreSlug) params.append('genres', genreSlug); // Добавляем жанр в запрос
-
-//     const url = `https://api.rawg.io/api/games?${params.toString()}`;
-//     // ... логіка fetch
-// }
-
 
 
 

@@ -13,7 +13,12 @@ const gameSchema = mongoose.Schema(
         }, 
         background_image: String,
         rating: Number,
-        released: String
+        released: String,
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        }
     }
 );
 

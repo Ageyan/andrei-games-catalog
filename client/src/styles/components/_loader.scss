@@ -20,6 +20,10 @@
         background-color: $bg-body-color;
     }
 
+    &.btn-show {
+        min-height: 30px;
+    }
+
     &__gamepad {
         width: 100px;
         height: auto;
@@ -42,6 +46,10 @@
                 margin-bottom: 20px;
                 width: 180px;
             }
+        }
+
+        &.btn-show {
+            width: 40px;
         }
     }
 
@@ -86,6 +94,10 @@
             @include desktop {
                 font-size: 1.8rem;
             }
+        }
+
+        &.btn-show {
+            display: none;
         }
     }
 }
