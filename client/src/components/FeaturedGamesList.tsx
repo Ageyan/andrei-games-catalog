@@ -6,22 +6,44 @@ import { MdDelete } from 'react-icons/md';
 
 interface FeaturedGamesListProps {
     customClass: string;
+    setIsAuthModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const FeaturedGamesList = ({ customClass }: FeaturedGamesListProps) => {
+const FeaturedGamesList = ({
+    customClass,
+    setIsAuthModal,
+}: FeaturedGamesListProps) => {
     const { favorites, loader: favLoader, deleteFavorite } = useFavorite();
+    const isAuthentificated = !!localStorage.getItem('token');
 
     return (
         <div className={customClass}>
             <h3 className="home-page__favorite-title">Featured games</h3>
-            <ul className="home-page__favorite-list">
-                {favLoader && (
-                    <p style={{ fontSize: '1rem' }}>
-                        Featured games are loading...
-                    </p>
-                )}
-                {!favLoader &&
-                    favorites.map(game => (
+            <button onClick={() => setIsAuthModal?.(true)}>open modal</button>
+            {!isAuthentificated && (
+                <div className="home-page__favorite-unauth">
+                    <p>Log in to create your own list of favorite games.</p>
+                    <button
+                        className="auth-btn"
+                        onClick={() => setIsAuthModal?.(true)}
+                    >
+                        Log in / Register
+                    </button>
+                </div>
+            )}
+            {isAuthentificated && favLoader && (
+                <p style={{ fontSize: '1rem' }}>
+                    Featured games are loading...
+                </p>
+            )}
+            {isAuthentificated && !favLoader && favorites.length === 0 && (
+                <p style={{ fontSize: '1rem' }}>
+                    Your list is empty. Add some games!
+                </p>
+            )}
+            {isAuthentificated && !favLoader && favorites.length > 0 && (
+                <ul className="home-page__favorite-list">
+                    {favorites.map(game => (
                         <Link to={`/game/${game.id}`} key={game.id}>
                             <li className="home-page__favorite-item">
                                 <img
@@ -44,7 +66,8 @@ const FeaturedGamesList = ({ customClass }: FeaturedGamesListProps) => {
                             </li>
                         </Link>
                     ))}
-            </ul>
+                </ul>
+            )}
         </div>
     );
 };

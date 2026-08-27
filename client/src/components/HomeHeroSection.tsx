@@ -9,14 +9,16 @@ const HomeHeroSection = ({
 }: HomeHeroSectionProps) => {
     return (
         <section className="hero-section">
-            <h1 className="hero-section__title">Games Catalog</h1>
-            <input
-                className="hero-section__search-input"
-                type="text"
-                placeholder="Enter the name of the game..."
-                value={searchTerm}
-                onChange={handleSearch}
-            />
+            <div className="hero-section__container">
+                <h1 className="hero-section__title">Games Catalog</h1>
+                <input
+                    className="hero-section__search-input"
+                    type="text"
+                    placeholder="Enter the name of the game..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                />
+            </div>
         </section>
     );
 };

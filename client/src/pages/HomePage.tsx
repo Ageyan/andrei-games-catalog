@@ -5,6 +5,7 @@ import type { Game } from '../types/games.types';
 import { useFavorite } from '../context/FavoritesContext';
 import { fetchGames } from '../api/games';
 import { useDebounce } from '../hooks/useDebounce';
+import { useModalClose } from '../hooks/useModalClose';
 
 import GameCard from '../components/GameCard';
 import FeaturedGamesList from '../components/FeaturedGamesList';
@@ -14,6 +15,7 @@ import SortContainer from '../components/SortContainer';
 import Toast from '../components/Toast';
 import Loader from '../components/Loader';
 import HomeHeroSection from '../components/HomeHeroSection';
+import ModalAuth from '../components/ModalAuth';
 
 import { FaStar } from 'react-icons/fa';
 
@@ -27,9 +29,11 @@ const HomePage = () => {
     const [page, setPage] = useState<number>(1);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [isAuthModal, setIsAuthModal] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
     const { favorites, toggleFavorite, toast, setToast } = useFavorite();
+    useModalClose(isAuthModal, () => setIsAuthModal(false));
     const debounceSearchTerm = useDebounce(searchTerm, 500);
 
     useEffect(() => {
@@ -113,7 +117,10 @@ const HomePage = () => {
                         >
                             <FaStar className="home-page__favorite-btn-icon" />
                         </div>
-                        <FeaturedGamesList customClass="home-page__favorites-container" />
+                        <FeaturedGamesList
+                            customClass="home-page__favorites-container"
+                            setIsAuthModal={setIsAuthModal}
+                        />
                     </aside>
                     <div className="home-page__main-content">
                         <div className="home-page__game-list">
@@ -157,6 +164,12 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+            {isAuthModal && (
+                <ModalAuth
+                    isAuthModal={isAuthModal}
+                    setIsAuthModal={setIsAuthModal}
+                />
+            )}
             <Drawer
                 customClass="drawer__favorites-container"
                 isDrawerOpen={isDrawerOpen}

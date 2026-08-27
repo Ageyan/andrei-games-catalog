@@ -1,15 +1,20 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import type { ToastState } from '../types/toast.types';
 import { login, register } from '../api/auth';
-import Toast from '../components/Toast';
+import Toast from './Toast';
+import { useFavorite } from '../context/FavoritesContext';
 
-export const AuthPage = () => {
+interface ModalAuthProps {
+    isAuthModal: boolean;
+    setIsAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
     const [userName, setUserName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isLogin, setIsLogin] = useState<boolean>(true);
     const [loader, setLoader] = useState<boolean>(false);
     const [toast, setToast] = useState<ToastState>({
         show: false,
@@ -17,7 +22,7 @@ export const AuthPage = () => {
         type: 'success',
     });
 
-    const navigate = useNavigate();
+    const { setIsAuthentificated } = useFavorite();
 
     const handlesSubmit = async (event: React.SubmitEvent) => {
         event.preventDefault();
@@ -52,7 +57,8 @@ export const AuthPage = () => {
 
                 if (response && response.token) {
                     localStorage.setItem('token', response.token);
-                    navigate('/');
+                    setIsAuthentificated(true);
+                    setIsAuthModal(false);
                 }
 
                 setUserName('');
@@ -74,12 +80,13 @@ export const AuthPage = () => {
                 }
             }
         } catch (err) {
-            let errorMessage = 'Сталася непередбачувана помилка';
+            let errorMessage =
+                'Error while trying to create/login to an account';
             if (axios.isAxiosError(err)) {
                 errorMessage =
-                    err.response?.data.message || 'Помилка при вході';
+                    err.response?.data.message || 'An unknown error occurred';
             } else {
-                console.error('Невідома помилка:', err);
+                console.error('An unknown error occurred:', err);
             }
             setToast({
                 show: true,
@@ -92,22 +99,37 @@ export const AuthPage = () => {
     };
 
     return (
-        <div className="auth-page">
-            <div className="auth-page__container">
-                <form className="auth-page__form" onSubmit={handlesSubmit}>
-                    <div className="auth-page__input-container">
+        <div
+            className={`modal-auth ${isAuthModal ? 'show' : ''}`}
+            onClick={() => setIsAuthModal(false)}
+        >
+            <div
+                className="modal-auth__container"
+                onClick={e => e.stopPropagation()}
+            >
+                <button onClick={() => setIsAuthModal(false)}>X</button>
+                <button
+                    onClick={() => {
+                        localStorage.removeItem('token');
+                        setIsAuthModal(false);
+                    }}
+                >
+                    Logout
+                </button>
+                <form className="modal-auth__form" onSubmit={handlesSubmit}>
+                    <div className="modal-auth__input-container">
                         <label>Username</label>
                         <input
-                            className="auth-page__input"
+                            className="modal-auth__input"
                             type="text"
                             value={userName}
                             onChange={event => setUserName(event.target.value)}
                         />
                     </div>
-                    <div className="auth-page__input-container">
+                    <div className="modal-auth__input-container">
                         <label>password</label>
                         <input
-                            className="auth-page__input"
+                            className="modal-auth__input"
                             type="password"
                             value={password}
                             onChange={event => setPassword(event.target.value)}
@@ -115,14 +137,14 @@ export const AuthPage = () => {
                     </div>
                     <button
                         type="submit"
-                        className="auth-page__enter-btn"
+                        className="modal-auth__enter-btn"
                         disabled={loader}
                     >
                         {isLogin ? 'Login' : 'Register'}
                     </button>
                     <button
                         type="button"
-                        className="auth-page__btn"
+                        className="modal-auth__btn"
                         onClick={event => {
                             event.stopPropagation();
                             setUserName('');
@@ -146,4 +168,4 @@ export const AuthPage = () => {
     );
 };
 
-export default AuthPage;
+export default ModalAuth;

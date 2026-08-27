@@ -9,6 +9,8 @@ interface GameCardProps {
 }
 
 const GameCard = ({ game, toggleFavorite, isFavorite }: GameCardProps) => {
+    const isAuthentificated = !!localStorage.getItem('token');
+
     const handleLikeClick = (event: React.MouseEvent) => {
         event.preventDefault();
         toggleFavorite(game);
@@ -17,7 +19,7 @@ const GameCard = ({ game, toggleFavorite, isFavorite }: GameCardProps) => {
     return (
         <Link to={`/game/${game.id}`} className="game-card">
             <button className="game-card__like-btn" onClick={handleLikeClick}>
-                {isFavorite ? <FaStar /> : <FaRegStar />}
+                {isFavorite && isAuthentificated ? <FaStar /> : <FaRegStar />}
             </button>
             <img
                 className="game-card__image"

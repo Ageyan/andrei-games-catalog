@@ -1,8 +1,15 @@
 import FavoriteGame from "../models/Game.js";
 
-export const addFavoriteGame = async(req, res) => {
+export const addFavoriteGame = async (req, res) => {
+    const { id, name, background_image, rating, released } = req.body;
+    const userId = req.user?.userId;
+
     try {
-        const { id, name, background_image, rating, released} = req.body;
+        const existingGame = await FavoriteGame.findOne({ id: id, user: userId });
+
+        if (existingGame) {
+            return res.status(400).json({ message: 'This game is already in your favorites' });
+        }
 
         const gameObj = {
             id,
@@ -12,40 +19,41 @@ export const addFavoriteGame = async(req, res) => {
             released
         }
 
-        const newGame = new FavoriteGame(gameObj);
-
-        const game = await newGame.save();
+        const game = await FavoriteGame.create({ ...gameObj, user: userId })
 
         return res.status(201).json(game);
-    } catch(e) {
-        res.status(400).json({ message: 'Failed to added the game' })
+    } catch(err) {
+        console.error('Failed to added the game', err);
+        res.status(500).json({ message: 'Failed server to added the game' });
     }
 };
 
-export const getFavoriteGames = async(req, res) => {
+export const getFavoriteGames = async (req, res) => {
+    const userId = req.user?.userId;
     try {
-        const games = await FavoriteGame.find();
+        const games = await FavoriteGame.find({user: userId});
 
         return res.status(200).json(games);
-    } catch(e) {
-        res.status(400).json({message: 'Failed to get favorite games'})
+    } catch(err) {
+        console.error('Failed to get favorite games:', err);
+        res.status(500).json({ message: 'Failed server to get favorite games' });
     }
 };
 
-export const deleteFavoriteGame = async(req,res) => {
+export const deleteFavoriteGame = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user?.userId;
     try {
-        const { id } = req.params;
-
-        const game = await FavoriteGame.findOneAndDelete({id : id});
+        const game = await FavoriteGame.findOneAndDelete({id : id, user: userId});
 
         if(!game) {
             return res.status(404).json({message: 'Game not found'})
         }
 
         return res.status(200).json({message: 'Game delete successfully'})
-    } catch(e) {
-        console.log("Error details:", e.message);
-        res.status(400).json({message: 'Failed to deleted the game'})
+    } catch(err) {
+        console.error('Failed to deleted the game', err);
+        res.status(500).json({ message: 'Failed server to deleted the game' });
     }
 };
 

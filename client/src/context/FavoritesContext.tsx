@@ -22,6 +22,7 @@ interface FavoriteContextProps {
     deleteFavorite: (game: FavoriteGame) => Promise<void>;
     setToast: React.Dispatch<React.SetStateAction<ToastState>>;
     toast: ToastState;
+    setIsAuthentificated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FavoriteContext = createContext<FavoriteContextProps | null>(null);
@@ -29,6 +30,9 @@ const FavoriteContext = createContext<FavoriteContextProps | null>(null);
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
     const [favorites, setFavorites] = useState<FavoriteGame[]>([]);
     const [loader, setLoader] = useState<boolean>(false);
+    const [isAuthentificated, setIsAuthentificated] = useState<boolean>(
+        !!localStorage.getItem('token'),
+    );
     const [toast, setToast] = useState<ToastState>({
         show: false,
         message: '',
@@ -37,6 +41,9 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         const getFavGames = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
             setLoader(true);
             try {
                 const res = await getFavoriteGames();
@@ -49,7 +56,7 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
         };
 
         getFavGames();
-    }, []);
+    }, [isAuthentificated]);
 
     const handleGameError = (error: unknown, defaultMessage: string) => {
         let errorMessage = defaultMessage;
@@ -84,6 +91,17 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const toggleFavorite = async (game: Game): Promise<void> => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setToast({
+                show: true,
+                message: 'Please log in to save games',
+                type: 'error',
+            });
+            return;
+        }
+
         if (favorites.some(g => g.id === game.id)) {
             await handleDeleteFavoriteGame(game);
         } else {
@@ -118,6 +136,7 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
                 deleteFavorite,
                 toast,
                 setToast,
+                setIsAuthentificated,
             }}
         >
             {children}

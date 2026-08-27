@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import type { GameDetails, GameScreenshot } from '../types/games.types';
 import { fetchGameDetails, fetchGamesScreenshots } from '../api/games';
+import { useModalClose } from '../hooks/useModalClose';
 
 import Loader from '../components/Loader';
 import ModalScreenshot from '../components/ModalScreenshot';
@@ -18,6 +19,7 @@ const GameDetailsPage = () => {
     const [activeSrc, setActiveSrc] = useState<string>('');
     const [error, setError] = useState<string>('');
     const { id } = useParams();
+    useModalClose(isModal, () => setIsModal(false));
 
     useEffect(() => {
         if (!id) return;
@@ -52,25 +54,6 @@ const GameDetailsPage = () => {
         };
         getGame();
     }, [id]);
-
-    useEffect(() => {
-        if (!isModal) return;
-
-        document.body.style.overflow = 'hidden';
-
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                setIsModal(false);
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            document.body.style.overflow = 'auto';
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isModal]);
 
     const handleModal = (src: string) => {
         setIsModal(true);
