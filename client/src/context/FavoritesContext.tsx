@@ -22,7 +22,9 @@ interface FavoriteContextProps {
     deleteFavorite: (game: FavoriteGame) => Promise<void>;
     setToast: React.Dispatch<React.SetStateAction<ToastState>>;
     toast: ToastState;
-    setIsAuthentificated: React.Dispatch<React.SetStateAction<boolean>>;
+    isAuthenticated: boolean;
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    clearFavorites: () => void;
 }
 
 const FavoriteContext = createContext<FavoriteContextProps | null>(null);
@@ -30,7 +32,7 @@ const FavoriteContext = createContext<FavoriteContextProps | null>(null);
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
     const [favorites, setFavorites] = useState<FavoriteGame[]>([]);
     const [loader, setLoader] = useState<boolean>(false);
-    const [isAuthentificated, setIsAuthentificated] = useState<boolean>(
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
         !!localStorage.getItem('token'),
     );
     const [toast, setToast] = useState<ToastState>({
@@ -56,7 +58,7 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
         };
 
         getFavGames();
-    }, [isAuthentificated]);
+    }, [isAuthenticated]);
 
     const handleGameError = (error: unknown, defaultMessage: string) => {
         let errorMessage = defaultMessage;
@@ -127,6 +129,8 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
+    const clearFavorites = () => setFavorites([]);
+
     return (
         <FavoriteContext.Provider
             value={{
@@ -136,7 +140,9 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
                 deleteFavorite,
                 toast,
                 setToast,
-                setIsAuthentificated,
+                isAuthenticated,
+                setIsAuthenticated,
+                clearFavorites,
             }}
         >
             {children}

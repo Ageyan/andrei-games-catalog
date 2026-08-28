@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 
 import type { GameDetails, GameScreenshot } from '../types/games.types';
 import { fetchGameDetails, fetchGamesScreenshots } from '../api/games';
-import { useModalClose } from '../hooks/useModalClose';
 
 import Loader from '../components/Loader';
 import ModalScreenshot from '../components/ModalScreenshot';
@@ -19,7 +18,6 @@ const GameDetailsPage = () => {
     const [activeSrc, setActiveSrc] = useState<string>('');
     const [error, setError] = useState<string>('');
     const { id } = useParams();
-    useModalClose(isModal, () => setIsModal(false));
 
     useEffect(() => {
         if (!id) return;
@@ -58,12 +56,6 @@ const GameDetailsPage = () => {
     const handleModal = (src: string) => {
         setIsModal(true);
         setActiveSrc(src);
-    };
-
-    const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        if (event.target === event.currentTarget) {
-            setIsModal(false);
-        }
     };
 
     return (
@@ -164,7 +156,6 @@ const GameDetailsPage = () => {
                     isModal={isModal}
                     setIsModal={setIsModal}
                     activeSrc={activeSrc}
-                    handleBackdropClick={handleBackdropClick}
                 />
             )}
         </div>

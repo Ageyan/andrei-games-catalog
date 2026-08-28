@@ -6,62 +6,80 @@ import { MdDelete } from 'react-icons/md';
 
 interface FeaturedGamesListProps {
     customClass: string;
-    setIsAuthModal?: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsDrawerOpen?: (arg: boolean) => void;
 }
 
 const FeaturedGamesList = ({
     customClass,
     setIsAuthModal,
+    setIsDrawerOpen,
 }: FeaturedGamesListProps) => {
-    const { favorites, loader: favLoader, deleteFavorite } = useFavorite();
-    const isAuthentificated = !!localStorage.getItem('token');
+    const {
+        favorites,
+        loader: favLoader,
+        deleteFavorite,
+        isAuthenticated,
+    } = useFavorite();
+
+    const handleAuth = () => {
+        setTimeout(() => {
+            setIsAuthModal(true);
+        }, 700);
+    };
 
     return (
         <div className={customClass}>
-            <h3 className="home-page__favorite-title">Featured games</h3>
-            <button onClick={() => setIsAuthModal?.(true)}>open modal</button>
-            {!isAuthentificated && (
-                <div className="home-page__favorite-unauth">
-                    <p>Log in to create your own list of favorite games.</p>
+            <h3 className="featured-container__title">Featured games</h3>
+            {!isAuthenticated && (
+                <div className="featured-container__unauth">
+                    <p className="featured-container__unauth-text">
+                        Log in to create your own list of favorite games.
+                    </p>
                     <button
-                        className="auth-btn"
-                        onClick={() => setIsAuthModal?.(true)}
+                        className="featured-container__sign-in-btn"
+                        onClick={() => {
+                            setIsDrawerOpen?.(false);
+                            handleAuth();
+                        }}
                     >
-                        Log in / Register
+                        Sign in
                     </button>
                 </div>
             )}
-            {isAuthentificated && favLoader && (
-                <p style={{ fontSize: '1rem' }}>
+            {isAuthenticated && favLoader && (
+                <p className="featured-container__text">
                     Featured games are loading...
                 </p>
             )}
-            {isAuthentificated && !favLoader && favorites.length === 0 && (
-                <p style={{ fontSize: '1rem' }}>
+            {isAuthenticated && !favLoader && favorites.length === 0 && (
+                <p className="featured-container__text">
                     Your list is empty. Add some games!
                 </p>
             )}
-            {isAuthentificated && !favLoader && favorites.length > 0 && (
-                <ul className="home-page__favorite-list">
+            {isAuthenticated && !favLoader && favorites.length > 0 && (
+                <ul className="featured-container__list">
                     {favorites.map(game => (
                         <Link to={`/game/${game.id}`} key={game.id}>
-                            <li className="home-page__favorite-item">
+                            <li className="featured-container__item">
                                 <img
-                                    className="home-page__favorite-item-img"
+                                    className="featured-container__item-img"
                                     src={game.background_image}
                                     alt={game.name}
                                 />
-                                <p className="home-page__favorite-item-text">
+                                <p className="featured-container__item-text">
                                     {game.name}
                                 </p>
                                 <button
-                                    className="home-page__favorite-item-btn-del"
-                                    onClick={(event: React.MouseEvent) => {
+                                    className="featured-container__item-btn-del"
+                                    onClick={(
+                                        event: React.MouseEvent<HTMLButtonElement>,
+                                    ) => {
                                         event.preventDefault();
                                         deleteFavorite(game);
                                     }}
                                 >
-                                    <MdDelete className="home-page__favorite-item-btn-del-icon" />
+                                    <MdDelete className="featured-container__item-btn-del-icon" />
                                 </button>
                             </li>
                         </Link>

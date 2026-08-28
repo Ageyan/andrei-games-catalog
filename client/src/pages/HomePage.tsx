@@ -32,7 +32,7 @@ const HomePage = () => {
     const [isAuthModal, setIsAuthModal] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
-    const { favorites, toggleFavorite, toast, setToast } = useFavorite();
+    const { favorites, toast, setToast, isAuthenticated } = useFavorite();
     useModalClose(isAuthModal, () => setIsAuthModal(false));
     const debounceSearchTerm = useDebounce(searchTerm, 500);
 
@@ -95,6 +95,7 @@ const HomePage = () => {
             <HomeHeroSection
                 searchTerm={searchTerm}
                 handleSearch={handleSearch}
+                setIsAuthModal={setIsAuthModal}
             />
             <div className="home-page__container">
                 <GenresContainer
@@ -118,7 +119,7 @@ const HomePage = () => {
                             <FaStar className="home-page__favorite-btn-icon" />
                         </div>
                         <FeaturedGamesList
-                            customClass="home-page__favorites-container"
+                            customClass="featured-container"
                             setIsAuthModal={setIsAuthModal}
                         />
                     </aside>
@@ -128,16 +129,15 @@ const HomePage = () => {
                                 <div className="error-banner">{error}</div>
                             )}
                             {!loader && !error && games.length === 0 && (
-                                <p className="empty-state">
+                                <div className="empty-state">
                                     Games not found...
-                                </p>
+                                </div>
                             )}
                             {!error &&
                                 games.map(game => (
                                     <GameCard
                                         key={game.id}
                                         game={game}
-                                        toggleFavorite={toggleFavorite}
                                         isFavorite={favorites.some(
                                             fav => fav.id === game.id,
                                         )}
@@ -164,23 +164,36 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            {isAuthModal && (
-                <ModalAuth
-                    isAuthModal={isAuthModal}
-                    setIsAuthModal={setIsAuthModal}
-                />
-            )}
+            <ModalAuth
+                isAuthModal={isAuthModal}
+                setIsAuthModal={setIsAuthModal}
+            />
             <Drawer
                 customClass="drawer__favorites-container"
                 isDrawerOpen={isDrawerOpen}
                 setIsDrawerOpen={setIsDrawerOpen}
+                setIsAuthModal={setIsAuthModal}
             />
             <Toast
                 show={toast.show}
                 message={toast.message}
                 type={toast.type}
                 onClose={() => setToast(prev => ({ ...prev, show: false }))}
-            />
+            >
+                {!isAuthenticated ? (
+                    <button
+                        className="toast__sign-in-btn"
+                        onClick={() => {
+                            setToast(prev => ({ ...prev, show: false }));
+                            setIsAuthModal(true);
+                        }}
+                    >
+                        Sign in
+                    </button>
+                ) : (
+                    ''
+                )}
+            </Toast>
         </div>
     );
 };

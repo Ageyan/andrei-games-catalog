@@ -5,9 +5,9 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    background-color: rgb(45, 45, 45);
-    border-left: 6px solid red;
-    color: $white;
+    background-color: $modal-border-color;
+    border-left: 6px solid $text-error;
+    color: $accent-yellow;
     padding: 16px;
     border-radius: 6px;
     margin: 15px 0;
@@ -23,11 +23,11 @@
     gap: 10px;
     padding: 40px 20px;
     text-align: center;
-    color: $black;
+    color: $accent-yellow;
     font-size: 1.1rem;
     width: 100%;
-    background-color: rgb(45, 45, 45);
-    border: 2px dashed rgb(40, 40, 40);
+    background-color: $modal-border-color;
+    border: 2px dashed $modal-input-bg;
     border-radius: 8px;
     margin-top: 15px;
 }

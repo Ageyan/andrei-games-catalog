@@ -6,9 +6,10 @@ type ToastProps = {
     message: string;
     type: 'success' | 'error';
     onClose: () => void;
+    children?: React.ReactNode;
 };
 
-const Toast = ({ show, message, type, onClose }: ToastProps) => {
+const Toast = ({ show, message, type, onClose, children }: ToastProps) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose();
@@ -29,6 +30,7 @@ const Toast = ({ show, message, type, onClose }: ToastProps) => {
             >
                 <IoMdClose className="toast__close-btn-icon" />
             </button>
+            {children}
         </div>
     );
 };

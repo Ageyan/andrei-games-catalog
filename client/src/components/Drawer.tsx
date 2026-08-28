@@ -1,26 +1,52 @@
+import { useFavorite } from '../context/FavoritesContext';
+
 import FeaturedGamesList from './FeaturedGamesList';
-import { IoClose } from 'react-icons/io5';
 
 interface DrawerProps {
     isDrawerOpen: boolean;
     setIsDrawerOpen: (arg: boolean) => void;
     customClass: string;
+    setIsAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Drawer = ({
     isDrawerOpen,
     setIsDrawerOpen,
     customClass,
+    setIsAuthModal,
 }: DrawerProps) => {
+    const isAuthenticated = !!localStorage.getItem('token');
+
+    const { setIsAuthenticated, clearFavorites } = useFavorite();
+
+    const logoutDrawer = () => {
+        setIsDrawerOpen(false);
+
+        setTimeout(() => {
+            localStorage.removeItem('token');
+            setIsAuthenticated(false);
+            clearFavorites();
+        }, 400);
+    };
+
     return (
         <div className={`drawer ${isDrawerOpen ? 'open' : ''}`}>
             <button
                 className="drawer__close-btn"
                 onClick={() => setIsDrawerOpen(false)}
             >
-                <IoClose className="drawer__close-btn-icon" />
+                X
             </button>
-            <FeaturedGamesList customClass={customClass} />
+            <FeaturedGamesList
+                customClass={customClass}
+                setIsAuthModal={setIsAuthModal}
+                setIsDrawerOpen={setIsDrawerOpen}
+            />
+            {isAuthenticated && (
+                <button className="drawer__logout-btn" onClick={logoutDrawer}>
+                    Logout
+                </button>
+            )}
         </div>
     );
 };

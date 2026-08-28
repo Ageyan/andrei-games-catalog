@@ -8,7 +8,7 @@
     width: 80%;
     height: 100vh;
     z-index: 9999;
-    padding: 40px 12px 40px 24px;
+    padding: 40px 12px 16px 24px;
     background-color: rgb(30, 30, 30);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom-left-radius: 16px;
@@ -21,34 +21,56 @@
     }
 
     &.open {
-        transform: translateX(0);;
+        transform: translateX(0);
     }
 
     &__close-btn {
         position: absolute;
-        top: 8px;
-        left: 4px;
-        color: rgb(210, 210, 119);
+        top: 10px;
+        left: 8px;
+        color: $text-muted;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: $accent-yellow;
+        }
 
         @include tablet {
-            top: 12px;
-            left: 8px;
+            top: 18px;
+            left: 16px;
         }
-        
-        &-icon {
-            width: 32px;
-            height: 32px;
+    }
 
-            @include tablet {
-                width: 40px;
-                height: 40px;
-            }
+    &__logout-btn {
+        margin-top: 16px;
+        background: $black;
+        width: 100%;
+        min-width: 100px;
+        border: 1px solid $modal-border-color;
+        color: $text-muted;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        @include tablet {
+            margin-top: 28px;
+            padding: 14px 20px;
+            font-size: 1.2rem;
+        }
+
+        &:hover {
+            border-color: $accent-yellow;
+            color: $accent-yellow;
         }
     }
 }
 
 .drawer__favorites-container {
-    & .home-page__favorite-title {
+    & .featured-container__title {
         font-size: 1.3rem;
 
         @include tablet {
@@ -56,11 +78,15 @@
         }
     }
 
-    & .home-page__favorite-list {
-        max-height: calc(100vh - 120px);
+    & .featured-container__list {
+        max-height: calc(100vh - 180px);
+
+        @include tablet {
+            max-height: calc(100vh - 260px);
+        }
     }
 
-    & .home-page__favorite-item-img {
+    & .featured-container__item-img {
         width: 75px;
         height: 75px;
 
@@ -70,7 +96,7 @@
         }
     }
 
-    & .home-page__favorite-item-text {
+    & .featured-container__item-text {
         @include tablet {
             font-size: 1.2rem;
         }

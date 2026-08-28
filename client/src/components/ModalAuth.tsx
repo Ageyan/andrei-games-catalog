@@ -22,7 +22,7 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
         type: 'success',
     });
 
-    const { setIsAuthentificated } = useFavorite();
+    const { setIsAuthenticated } = useFavorite();
 
     const handlesSubmit = async (event: React.SubmitEvent) => {
         event.preventDefault();
@@ -57,7 +57,7 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
 
                 if (response && response.token) {
                     localStorage.setItem('token', response.token);
-                    setIsAuthentificated(true);
+                    setIsAuthenticated(true);
                     setIsAuthModal(false);
                 }
 
@@ -107,14 +107,11 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
                 className="modal-auth__container"
                 onClick={e => e.stopPropagation()}
             >
-                <button onClick={() => setIsAuthModal(false)}>X</button>
                 <button
-                    onClick={() => {
-                        localStorage.removeItem('token');
-                        setIsAuthModal(false);
-                    }}
+                    className="modal-auth__close-btn"
+                    onClick={() => setIsAuthModal(false)}
                 >
-                    Logout
+                    X
                 </button>
                 <form className="modal-auth__form" onSubmit={handlesSubmit}>
                     <div className="modal-auth__input-container">
@@ -123,6 +120,9 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
                             className="modal-auth__input"
                             type="text"
                             value={userName}
+                            autoCapitalize="none"
+                            autoCorrect="off"
+                            autoComplete="off"
                             onChange={event => setUserName(event.target.value)}
                         />
                     </div>
@@ -132,6 +132,9 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
                             className="modal-auth__input"
                             type="password"
                             value={password}
+                            autoCapitalize="none"
+                            autoCorrect="off"
+                            autoComplete="off"
                             onChange={event => setPassword(event.target.value)}
                         />
                     </div>

@@ -1,15 +1,15 @@
 import type { Game } from '../types/games.types';
 import { Link } from 'react-router-dom';
 import { FaRegStar, FaStar } from 'react-icons/fa';
+import { useFavorite } from '../context/FavoritesContext';
 
 interface GameCardProps {
     game: Game;
-    toggleFavorite: (game: Game) => void;
     isFavorite: boolean;
 }
 
-const GameCard = ({ game, toggleFavorite, isFavorite }: GameCardProps) => {
-    const isAuthentificated = !!localStorage.getItem('token');
+const GameCard = ({ game, isFavorite }: GameCardProps) => {
+    const { isAuthenticated, toggleFavorite } = useFavorite();
 
     const handleLikeClick = (event: React.MouseEvent) => {
         event.preventDefault();
@@ -19,7 +19,7 @@ const GameCard = ({ game, toggleFavorite, isFavorite }: GameCardProps) => {
     return (
         <Link to={`/game/${game.id}`} className="game-card">
             <button className="game-card__like-btn" onClick={handleLikeClick}>
-                {isFavorite && isAuthentificated ? <FaStar /> : <FaRegStar />}
+                {isFavorite && isAuthenticated ? <FaStar /> : <FaRegStar />}
             </button>
             <img
                 className="game-card__image"

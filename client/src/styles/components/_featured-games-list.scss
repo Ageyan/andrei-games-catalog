@@ -1,0 +1,168 @@
+@use '../utils/mixins' as *;
+@use '../utils/variables' as *;
+
+.featured-container {
+    display: none;
+
+    @include desktop {
+        display: block;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 20px 16px;
+    }
+
+    &__title {
+        font-size: 1.2rem;
+    }
+
+    &__unauth {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__unauth-text,
+    &__text {
+        font-size: 1rem;
+
+        @include tablet {
+            font-size: 1.2rem;
+        }
+    }
+
+    &__title,
+    &__unauth-text {
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+
+        @include tablet {
+            margin-bottom: 30px;
+            padding-bottom: 18px;
+        }
+    }
+
+    &__sign-in-btn {
+        background: $black;
+        width: 100%;
+        min-width: 100px;
+        border: 1px solid $modal-border-color;
+        color: $text-muted;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        @include tablet {
+            padding: 14px 20px;
+            font-size: 1.2rem;
+        }
+
+        @include desktop {
+            padding: 10px 14px;
+            font-size: 1rem;
+        }
+
+        &:hover {
+            border-color: $accent-yellow;
+            color: $accent-yellow;
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: 450px;
+        overflow-y: auto;
+        padding-right: 5px;
+        list-style: none;
+        padding-left: 0;
+
+        a {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        transition: background 0.3s ease-in-out;
+        border-radius: 8px;
+        border-bottom-right-radius: 0px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        @include tablet {
+            gap: 24px;
+        }
+
+        @include desktop {
+            gap: 10px;
+        }
+
+        &-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        &-text {
+            font-size: 0.9rem;
+            color: $white;
+            text-align: left;
+            width: 100%;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        &-btn-del {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            color: rgb(140, 20, 20);
+            cursor: pointer;
+
+            @include desktop {
+                width: 32px;
+                height: 32px;
+            }
+
+            &:hover {
+                color: rgb(200, 20, 20);
+            }
+        }
+
+        &-btn-del-icon {
+            @include tablet {
+                width: 36px;
+                height: 36px;
+            }
+
+            @include desktop {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+}

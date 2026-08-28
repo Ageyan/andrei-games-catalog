@@ -12,6 +12,7 @@
         ),
         url('../../assets/bg-image.jpg');
     height: 30vh;
+    min-height: 220px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -19,12 +20,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 80px 24px 32px;
+    padding: 80px 0px 32px;
 
     @include tablet {
         background-position: center 15%;
         height: 34vh;
-        padding: 100px 24px 36px;
+        padding: 100px 0px 36px;
     }
 
     @include desktop {
@@ -34,6 +35,8 @@
     }
 
     &__container {
+        @include container;
+        position: relative;
         height: 100%;
         display: flex;
         align-items: center;
@@ -66,24 +69,68 @@
         border-radius: 16px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background: rgba(0, 0, 0, 0.6);
-        max-width: 400px;
         color: $white;
         outline: none;
 
         &:focus {
-            border-color: $white;
+            border-color: $accent-yellow;
         }
 
         @include tablet {
-            max-width: 500px;
-            padding: 12px 16px;
+            padding: 14px 18px;
             font-size: 1.3rem;
         }
 
         @include desktop {
             max-width: 600px;
-            padding: 12px 18px;
             font-size: 1.5rem;
+        }
+    }
+
+    &__user-container {
+        display: none;
+
+        @include desktop {
+            position: absolute;
+            top: 30px;
+            right: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+    }
+
+    &__user-icon {
+        width: 36px;
+        height: 36px;
+        color: $text-muted;
+        transition: color 0.3s ease-in-out;
+
+        &.is-auth {
+            color: $accent-yellow;
+        }
+    }
+
+    &__btn {
+        background: transparent;
+        min-width: 120px;
+        border: 1px solid $modal-border-color;
+        color: $text-muted;
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.logout:hover {
+            border-color: $text-error;
+            color: $text-error;
+        }
+
+        &.sign-in:hover {
+            border-color: $accent-yellow;
+            color: $accent-yellow;
         }
     }
 }

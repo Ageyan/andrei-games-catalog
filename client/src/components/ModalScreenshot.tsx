@@ -1,18 +1,24 @@
+import { useModalClose } from '../hooks/useModalClose';
+
 interface ModalScreenshotProps {
     isModal: boolean;
     setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
     activeSrc: string;
-    handleBackdropClick: (
-        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    ) => void;
 }
 
 export const ModalScreenshot = ({
     isModal,
     setIsModal,
     activeSrc,
-    handleBackdropClick,
 }: ModalScreenshotProps) => {
+    useModalClose(isModal, () => setIsModal(false));
+
+    const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        if (event.target === event.currentTarget) {
+            setIsModal(false);
+        }
+    };
+
     return (
         <div
             onClick={handleBackdropClick}

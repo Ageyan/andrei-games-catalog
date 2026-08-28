@@ -2,19 +2,21 @@
 @use '../utils/variables' as *;
 
 .footer {
-    background: #090909; 
-    border-top: 1px solid rgba(255, 255, 255, 0.03); 
-    padding: 24px 0; 
-    margin-top: auto; 
+    background: #090909;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 24px 0;
+    padding-bottom: 36px;
+    margin-top: auto;
 
     @include tablet {
         padding: 30px 0;
+        padding-bottom: 42px;
     }
 
     &__container {
-        @include container; 
+        @include container;
         display: flex;
-        justify-content: space-between; 
+        justify-content: space-between;
         align-items: center;
     }
 
@@ -31,7 +33,7 @@
 
     &__copy {
         font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.4); 
+        color: rgba(255, 255, 255, 0.4);
 
         @include tablet {
             font-size: 0.85rem;

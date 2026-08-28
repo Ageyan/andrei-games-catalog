@@ -39,13 +39,15 @@
             gap: 20px;
 
             @include tablet {
-                width: 60%;
-                margin: 0 auto;
-                gap: 30px;
+                width: 100%;
+                gap: 60px;
             }
 
             @include desktop {
-                width: 100%;
+                position: sticky;
+                top: 18px;
+                z-index: 100;
+                gap: 30px;
                 margin: 0;
                 padding: 0 10px 0;
                 flex-direction: column;
@@ -83,119 +85,6 @@
         }
     }
 
-    &__favorites-container {
-        display: none;
-
-        @include desktop {
-            display: block;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px 16px;
-        }
-    }
-
-    &__favorite-title {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 8px;
-    }
-
-    &__favorite-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        max-height: 450px;
-        overflow-y: auto;
-        padding-right: 5px;
-        list-style: none;
-        padding-left: 0;
-
-        a {
-            display: block;
-            width: 100%;
-            text-decoration: none;
-        }
-
-        &::-webkit-scrollbar {
-            width: 4px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-    }
-
-    &__favorite-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-        transition: background 0.3s ease-in-out;
-        border-radius: 8px;
-        border-bottom-right-radius: 0px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-        @include tablet {
-            gap: 24px;
-        }
-
-        @include desktop {
-            gap: 10px;
-        }
-
-        &-img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        &-text {
-            font-size: 0.9rem;
-            color: $white;
-            text-align: left;
-            width: 100%;
-        }
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        &-btn-del {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 46px;
-            height: 46px;
-            color: rgb(140, 20, 20);
-            cursor: pointer;
-
-            @include desktop {
-                width: 32px;
-                height: 32px;
-            }
-
-            &:hover {
-                color: rgb(200, 20, 20);
-            }
-        }
-
-        &-btn-del-icon {
-            @include tablet {
-                width: 36px;
-                height: 36px;
-            }
-
-            @include desktop {
-                width: 32px;
-                height: 32px;
-            }
-        }
-    }
-
     &__game-list {
         display: grid;
         padding: 14px 6px;
@@ -208,14 +97,17 @@
         border-radius: 12px;
 
         @include tablet {
-            padding: 18px 14px;
+            padding: 16px 12px;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 
+        @include large-tablet {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
         @include desktop {
             padding: 20px 16px;
-            grid-template-columns: repeat(4, 1fr);
         }
 
         .game-loader,
