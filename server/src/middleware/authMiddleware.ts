@@ -1,15 +1,16 @@
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export const protect = async (req, res, next) => {
+export const protect = async (req: Request, res: Response, next: NextFunction) => {
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
 
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 
-            req.user = decoded;
+            req.user = decoded as {userId : string};
 
             next();
         } catch (err) {

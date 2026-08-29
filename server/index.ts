@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import './config/db.js';
-import gameRoutes from './routes/gameRoutes.js';
-import authRoutes from './routes/authRoutes.js';
+import './src/config/db';
+import gameRoutes from './src/routes/gameRoutes';
+import authRoutes from './src/routes/authRoutes';
 
 const app = express();
 const port = 8080;

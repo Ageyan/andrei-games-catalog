@@ -1,12 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-const gameSchema = mongoose.Schema(
+import type { IFavoriteGame } from '../types/game.types';
+
+const gameSchema = new Schema<IFavoriteGame>(
     {
         id: {
             type: Number,
             required: true,
         }, 
-        name: {
+        name: { 
             type: String,
             required: true
         }, 
@@ -14,13 +16,13 @@ const gameSchema = mongoose.Schema(
         rating: Number,
         released: String,
         user: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User',
             required: true
         }
     }
 );
 
-const FavoriteGame = mongoose.model('FavoriteGame', gameSchema);
+const FavoriteGame = mongoose.model<IFavoriteGame>('FavoriteGame', gameSchema);
 
 export default FavoriteGame;

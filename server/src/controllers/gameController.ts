@@ -1,11 +1,13 @@
-import FavoriteGame from "../models/Game.js";
+import { Request, Response } from "express";
 
-export const addFavoriteGame = async (req, res) => {
+import FavoriteGame from "../models/Game";
+
+export const addFavoriteGame = async (req: Request, res: Response) => {
     const { id, name, background_image, rating, released } = req.body;
-    const userId = req.user?.userId;
+    const userId = req.user!.userId;
 
     try {
-        const existingGame = await FavoriteGame.findOne({ id: id, user: userId });
+        const existingGame = await FavoriteGame.findOne({ id: id , user: userId});
 
         if (existingGame) {
             return res.status(400).json({ message: 'This game is already in your favorites' });
@@ -28,8 +30,8 @@ export const addFavoriteGame = async (req, res) => {
     }
 };
 
-export const getFavoriteGames = async (req, res) => {
-    const userId = req.user?.userId;
+export const getFavoriteGames = async (req: Request, res: Response) => {
+    const userId = req.user!.userId;
     try {
         const games = await FavoriteGame.find({user: userId});
 
@@ -40,11 +42,11 @@ export const getFavoriteGames = async (req, res) => {
     }
 };
 
-export const deleteFavoriteGame = async (req, res) => {
-    const { id } = req.params;
-    const userId = req.user?.userId;
+export const deleteFavoriteGame = async (req: Request, res: Response) => {
+    const gameId = Number(req.params.id);
+    const userId = req.user!.userId;
     try {
-        const game = await FavoriteGame.findOneAndDelete({id : id, user: userId});
+        const game = await FavoriteGame.findOneAndDelete({id : gameId, user: userId});
 
         if(!game) {
             return res.status(404).json({message: 'Game not found'})

@@ -1,6 +1,9 @@
 import express from 'express';
-import * as gameController from '../controllers/gameController.js';
-import { protect } from '../middleware/authMiddleware.js';
+
+import { protect } from '../middleware/authMiddleware';
+
+import * as gameController from '../controllers/gameController';
+
 
 const router = express.Router();
 

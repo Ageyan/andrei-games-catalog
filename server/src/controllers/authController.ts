@@ -1,8 +1,10 @@
-import User from '../models/User.js';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-export const register = async (req, res) => {
+import User from '../models/User';
+
+export const register = async (req: Request, res: Response) => {
     const { userName, password } = req.body;
 
     try {
@@ -33,7 +35,7 @@ export const register = async (req, res) => {
     }
 }
 
-export const login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
     const { userName, password } = req.body;
 
     try {
@@ -53,7 +55,7 @@ export const login = async (req, res) => {
 
         const token = jwt.sign(
             { userId: user.id },
-            process.env.JWT_SECRET,
+            process.env.JWT_SECRET as string,
             { expiresIn: '1d' }
         )
 
