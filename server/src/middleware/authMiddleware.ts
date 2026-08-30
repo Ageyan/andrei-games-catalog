@@ -1,7 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export const protect = async (req: Request, res: Response, next: NextFunction) => {
+import type { AuthRequest } from '../types/express.types';
+
+export const protect = async (req: AuthRequest, res: Response, next: NextFunction) => {
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {

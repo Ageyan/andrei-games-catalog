@@ -1,8 +1,10 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+
+import type { AuthRequest } from "../types/express.types";
 
 import FavoriteGame from "../models/Game";
 
-export const addFavoriteGame = async (req: Request, res: Response) => {
+export const addFavoriteGame = async (req: AuthRequest, res: Response) => {
     const { id, name, background_image, rating, released } = req.body;
     const userId = req.user!.userId;
 
@@ -30,7 +32,7 @@ export const addFavoriteGame = async (req: Request, res: Response) => {
     }
 };
 
-export const getFavoriteGames = async (req: Request, res: Response) => {
+export const getFavoriteGames = async (req: AuthRequest, res: Response) => {
     const userId = req.user!.userId;
     try {
         const games = await FavoriteGame.find({user: userId});
@@ -42,7 +44,7 @@ export const getFavoriteGames = async (req: Request, res: Response) => {
     }
 };
 
-export const deleteFavoriteGame = async (req: Request, res: Response) => {
+export const deleteFavoriteGame = async (req: AuthRequest, res: Response) => {
     const gameId = Number(req.params.id);
     const userId = req.user!.userId;
     try {
