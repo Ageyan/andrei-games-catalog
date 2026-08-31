@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import './src/config/db';
-import gameRoutes from './src/routes/gameRoutes';
-import authRoutes from './src/routes/authRoutes';
+import './config/db';
+import gameRoutes from './routes/gameRoutes';
+import authRoutes from './routes/authRoutes';
 
 const app = express();
 const port = process.env.PORT || 8080;
