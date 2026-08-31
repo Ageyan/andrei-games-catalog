@@ -6,9 +6,9 @@
     max-width: 100%;
     min-width: 0;
     overflow: hidden;
-    --swiper-navigation-color: rgb(210, 210, 119);
-    --swiper-pagination-color: rgb(210, 210, 119);
-    --swiper-pagination-bullet-inactive-color: rgba(255, 255, 255, 0.3);
+    --swiper-navigation-color: #{$accent-yellow};
+    --swiper-pagination-color: #{$accent-yellow};
+    --swiper-pagination-bullet-inactive-color: #{$white-50};
 
     .swiper-button-next,
     .swiper-button-prev {
@@ -25,7 +25,7 @@
     &__title {
         font-size: 1.5rem;
         margin-bottom: 20px;
-        color: #fff;
+        color: $white;
 
         @include tablet {
             font-size: 1.7rem;
@@ -46,10 +46,11 @@
     &__slide-inner {
         width: 100%;
         height: 220px;
+        cursor: pointer;
         overflow: hidden;
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        background-color: rgba(255, 255, 255, 0.02);
+        border: 1px solid $white-10;
+        background-color: $white-10;
         transition: border-color 0.3s ease;
 
         @include tablet {
@@ -61,15 +62,15 @@
         }
 
         &:hover {
-            border-color: rgba(210, 210, 119, 0.4);
+            border-color: $accent-yellow-40;
 
-            .screenshots-section-img {
+            .screenshots-section__img {
                 transform: scale(1.05);
             }
         }
     }
 
-    &__screenshot-img {
+    &__img {
         width: 100%;
         height: 100%;
         object-fit: cover;

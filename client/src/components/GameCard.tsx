@@ -1,7 +1,9 @@
-import type { Game } from '../types/games.types';
 import { Link } from 'react-router-dom';
-import { FaRegStar, FaStar } from 'react-icons/fa';
+
+import type { Game } from '../types/games.types';
 import { useFavorite } from '../context/FavoritesContext';
+
+import { FaRegStar, FaStar } from 'react-icons/fa';
 
 interface GameCardProps {
     game: Game;

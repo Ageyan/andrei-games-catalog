@@ -6,18 +6,24 @@
 
 @use './layouts/layout';
 
-@use './components/error-empty-banner';
+@use './pages/game-page';
+@use './pages/home-page';
+
+@use './components/common/error-empty-banner';
+@use './components/common/loader';
+@use './components/common/toast';
+
+@use './components/filters/genres-container';
+@use './components/filters/sort-container';
+
+@use './components/layout/footer';
+
+@use './components/modal/modal-auth';
+@use './components/modal/modal-screenshot';
+
 @use './components/featured-games-list';
-@use './components/footer';
 @use './components/game-card';
-@use './components/game-page';
-@use './components/genres-container';
+
 @use './components/hero-section';
-@use './components/home-page';
-@use './components/loader';
 @use './components/mobile-drawer';
-@use './components/modal-auth';
-@use './components/modal-screenshot';
 @use './components/screenshots';
-@use './components/sort-container';
-@use './components/toast';

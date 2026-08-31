@@ -6,8 +6,8 @@
     background:
         linear-gradient(
             to bottom,
-            #090909 0%,
-            rgba(0, 0, 0, 0.4) 15%,
+            $bg-body-color 0%,
+            $black-50 15%,
             $bg-color 100%
         ),
         url('../../assets/bg-image.jpg');
@@ -51,7 +51,7 @@
 
     &__title {
         font-size: 2.2rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        text-shadow: 2px 2px 4px $black-50;
 
         @include tablet {
             font-size: 2.7rem;
@@ -67,23 +67,33 @@
         padding: 12px;
         font-size: 1.1rem;
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid $white-10;
+        background: $black-50;
         color: $white;
-        outline: none;
+
+        -webkit-appearance: none;
+        appearance: none;
+
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-decoration,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+            -webkit-appearance: none;
+            appearance: none;
+        }
 
         &:focus {
             border-color: $accent-yellow;
         }
 
         @include tablet {
-            padding: 14px 18px;
+            padding: 12px 18px;
             font-size: 1.3rem;
         }
 
         @include desktop {
             max-width: 700px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
     }
 
@@ -92,7 +102,7 @@
 
         @include desktop {
             position: absolute;
-            top: 30px;
+            top: 0px;
             right: 0px;
             display: flex;
             align-items: center;

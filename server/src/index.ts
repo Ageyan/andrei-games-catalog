@@ -10,7 +10,10 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 app.use('/api/favorites', gameRoutes);
-app.use('/api/auth', authRoutes);   
+app.use('/api/auth', authRoutes);
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ message: 'Server is awake and healthy!' });
+})  
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port} and starting at http://localhost:${port}`)

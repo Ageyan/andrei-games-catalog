@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import type { ToastState } from '../types/toast.types';
-import { login, register } from '../api/auth';
-import Toast from './Toast';
-import { useFavorite } from '../context/FavoritesContext';
+import { useFavorite } from '../../context/FavoritesContext';
+import type { ToastState } from '../../types/toast.types';
+import { login, register } from '../../api/auth';
+
+import Toast from '../common/Toast';
+import Loader from '../common/Loader';
 
 interface ModalAuthProps {
     isAuthModal: boolean;
@@ -143,7 +145,13 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
                         className="modal-auth__enter-btn"
                         disabled={loader}
                     >
-                        {isLogin ? 'Login' : 'Register'}
+                        {loader ? (
+                            <Loader btn={true} />
+                        ) : isLogin ? (
+                            'Login'
+                        ) : (
+                            'Register'
+                        )}
                     </button>
                     <button
                         type="button"

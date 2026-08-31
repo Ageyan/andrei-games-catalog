@@ -1,5 +1,5 @@
-@use '../utils/variables' as *;
-@use '../utils/mixins' as *;
+@use '../../utils/variables' as *;
+@use '../../utils/mixins' as *;
 
 .toast {
     position: fixed;
@@ -7,7 +7,7 @@
     right: 4px;
     background-color: $modal-overlay-bg;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px $black-15;
     padding: 12px 32px 12px 16px;
     display: flex;
     flex-direction: column;

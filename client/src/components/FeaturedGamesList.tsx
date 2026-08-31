@@ -23,9 +23,14 @@ const FeaturedGamesList = ({
     } = useFavorite();
 
     const handleAuth = () => {
-        setTimeout(() => {
+        if (setIsDrawerOpen) {
+            setIsDrawerOpen(false);
+            setTimeout(() => {
+                setIsAuthModal(true);
+            }, 700);
+        } else {
             setIsAuthModal(true);
-        }, 700);
+        }
     };
 
     return (
@@ -39,7 +44,6 @@ const FeaturedGamesList = ({
                     <button
                         className="featured-container__sign-in-btn"
                         onClick={() => {
-                            setIsDrawerOpen?.(false);
                             handleAuth();
                         }}
                     >

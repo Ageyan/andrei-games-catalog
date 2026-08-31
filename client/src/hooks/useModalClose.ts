@@ -19,4 +19,4 @@ export const useModalClose = (isOpen: boolean, isClose: () => void) => {
             document.removeEventListener('keydown', handleKeyDown);
         }
     }, [isOpen, isClose])
-}
+};

@@ -1,7 +1,17 @@
 $black: black;
 $white: white;
+
 $bg-color: #121212;
 $bg-body-color: #090909;
+$bg-page: #0d0d0d;
+$bg-card: rgb(12, 12, 12);
+$bg-drawer: rgb(30, 30, 30);
+$bg-dropdown: #1a1a1a;
+
+$bg-page-00: rgba(13, 13, 13, 0);
+$bg-page-20: rgba(13, 13, 13, 0.2);
+$bg-page-40: rgba(13, 13, 13, 0.4);
+$bg-page-80: rgba(13, 13, 13, 0.8);
 
 $modal-overlay-bg: rgba(0, 0, 0, 0.75);
 $modal-content-bg: #1a1a1a;
@@ -10,12 +20,35 @@ $modal-border-color: #333333;
 
 $text-main: #ffffff;
 $text-muted: #9e9e9e;
-$text-error: #ff4d4f;
+$text-gray: #8b8b8b;
+$text-dark: #111;
 
+$text-error: #ff4d4f;
+$text-danger: rgb(140, 20, 20);
+$text-danger-hover: rgb(200, 20, 20);
 $succes-color: rgb(45, 91, 45);
 
 $accent-yellow: rgb(210, 210, 119);
+$accent-yellow-05: rgba(210, 210, 119, 0.05);
+$accent-yellow-20: rgba(210, 210, 119, 0.2);
+$accent-yellow-40: rgba(210, 210, 119, 0.4);
 $accent-yellow-hover: rgba(210, 210, 119, 0.8);
+
+$white-10: rgba(255, 255, 255, 0.1);
+$white-50: rgba(255, 255, 255, 0.5);
+$white-90: rgba(255, 255, 255, 0.9);
+
+$black-15: rgba(0, 0, 0, 0.15);
+$black-50: rgba(0, 0, 0, 0.5);
+$black-80: rgba(0, 0, 0, 0.8);
+
+$badge-good-bg: rgba(102, 204, 51, 0.2);
+$badge-good-text: #6c3;
+$badge-good-border: rgba(102, 204, 51, 0.4);
+
+$badge-mixed-bg: rgba(255, 204, 51, 0.2);
+$badge-mixed-text: #fc3;
+$badge-mixed-border: rgba(255, 204, 51, 0.4);
 
 $bp-tablet: 768px;
 $bp-large-tablet: 1024px;

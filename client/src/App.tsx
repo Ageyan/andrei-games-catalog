@@ -1,13 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
+import { useHealth } from './hooks/useHealth';
+
 import MainLayout from './layouts/MainLayout';
-import Loader from './components/Loader';
+import Loader from './components/common/Loader';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const GameDetailsPage = lazy(() => import('./pages/GameDetailsPage'));
 
 function App() {
+    useHealth();
+
     return (
         <BrowserRouter>
             <Suspense fallback={<Loader fullSize={true} />}>

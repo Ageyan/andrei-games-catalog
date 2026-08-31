@@ -10,12 +10,12 @@ import { useModalClose } from '../hooks/useModalClose';
 import GameCard from '../components/GameCard';
 import FeaturedGamesList from '../components/FeaturedGamesList';
 import Drawer from '../components/Drawer';
-import GenresContainer from '../components/GenresContainer';
-import SortContainer from '../components/SortContainer';
-import Toast from '../components/Toast';
-import Loader from '../components/Loader';
+import GenresContainer from '../components/filters/GenresContainer';
+import SortContainer from '../components/filters/SortContainer';
+import Toast from '../components/common/Toast';
+import Loader from '../components/common/Loader';
 import HomeHeroSection from '../components/HomeHeroSection';
-import ModalAuth from '../components/ModalAuth';
+import ModalAuth from '../components/modal/ModalAuth';
 
 import { FaStar } from 'react-icons/fa';
 

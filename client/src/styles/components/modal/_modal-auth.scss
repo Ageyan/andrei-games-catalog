@@ -1,5 +1,5 @@
-@use '../utils/mixins' as *;
-@use '../utils/variables' as *;
+@use '../../utils/mixins' as *;
+@use '../../utils/variables' as *;
 
 .modal-auth {
     position: fixed;
@@ -32,7 +32,7 @@
         position: relative;
         text-align: center;
         color: $text-main;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 15px 40px $black-80;
 
         @include tablet {
             max-width: 500px;
@@ -89,7 +89,7 @@
 
         &:focus {
             border-color: $accent-yellow;
-            box-shadow: 0 0 0 2px rgba(210, 210, 119, 0.2);
+            box-shadow: 0 0 0 2px $accent-yellow-20;
         }
     }
 
@@ -97,7 +97,7 @@
         margin-top: 10px;
         padding: 14px;
         background-color: $accent-yellow;
-        color: #111;
+        color: $text-dark;
         font-weight: bold;
         font-size: 1rem;
         text-transform: uppercase;

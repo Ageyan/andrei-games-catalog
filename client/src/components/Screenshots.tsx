@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 interface ScreenshotsProps {
     screenshots: GameScreenshot[];
     game: GameDetails;
-    handleModal: (src: string) => void;
+    handleModal: (index: number) => void;
 }
 
 const Screenshots = ({ screenshots, game, handleModal }: ScreenshotsProps) => {
@@ -26,18 +26,17 @@ const Screenshots = ({ screenshots, game, handleModal }: ScreenshotsProps) => {
                     slidesPerView={3}
                     breakpoints={{
                         320: { slidesPerView: 1 },
-                        768: { slidesPerView: 2 },
+                        600: { slidesPerView: 2 },
+                        // 768: { slidesPerView: 2 },
                         1200: { slidesPerView: 3 },
                     }}
                     className="screenshots-section__swiper"
                 >
-                    {screenshots.map(screenshot => (
+                    {screenshots.map((screenshot, index) => (
                         <SwiperSlide key={screenshot.id}>
                             <div className="screenshots-section__slide-inner">
                                 <img
-                                    onClick={() =>
-                                        handleModal(screenshot.image)
-                                    }
+                                    onClick={() => handleModal(index)}
                                     src={screenshot.image}
                                     alt={`Screenshot from the game ${game.name}`}
                                     className="screenshots-section__img"

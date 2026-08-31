@@ -1,0 +1,111 @@
+@use '../../utils/mixins' as *;
+@use '../../utils/variables' as *;
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $black-80;
+    backdrop-filter: blur(8px);
+    padding: 15px;
+    opacity: 1;
+    visibility: visible;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+    @include tablet {
+        padding: 40px;
+    }
+
+    @media (max-height: 600px) and (orientation: landscape) {
+        padding: 10px 45px;
+    }
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --swiper-navigation-color: #{$accent-yellow};
+    --swiper-pagination-color: #{$accent-yellow};
+    --swiper-pagination-bullet-inactive-color: #{$white-50};
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+        @include desktop {
+            display: flex;
+        }
+    }
+
+    @include tablet {
+        max-height: 45vh;
+    }
+
+    @include desktop {
+        height: 100%;
+        max-height: 80vh;
+    }
+
+    &__swiper {
+        width: 100%;
+        height: 100%;
+        padding-bottom: 30px !important;
+    }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px $black-50;
+    }
+
+    &__btn-close {
+        position: absolute;
+        z-index: 10000;
+        top: -10px;
+        right: -10px;
+        color: $white-50;
+        font-size: 1.5rem;
+        font-weight: 300;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        @include tablet {
+            top: -50px;
+            right: 0;
+        }
+
+        @include large-tablet {
+            top: -180px;
+        }
+
+        @include desktop {
+            top: -30px;
+        }
+
+        &:hover {
+            color: $accent-yellow;
+        }
+    }
+}

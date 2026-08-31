@@ -6,11 +6,14 @@ interface LoaderProps {
 
 export const Loader = ({ fullSize, gamePage, btn }: LoaderProps) => {
     const fullScreen = fullSize || gamePage;
+    const initialWidth = btn ? '40' : fullScreen ? '140' : '100';
+
     return (
         <div
             className={`game-loader ${fullScreen ? 'full' : ''} ${btn ? 'btn-show' : ''}`}
         >
             <svg
+                width={initialWidth}
                 className={`game-loader__gamepad ${fullScreen ? 'full' : ''} ${btn ? 'btn-show' : ''}`}
                 viewBox="0 0 100 60"
             >
@@ -18,13 +21,13 @@ export const Loader = ({ fullSize, gamePage, btn }: LoaderProps) => {
                     className="game-loader__body"
                     d="M20,10 C10,10 5,20 5,35 C5,50 15,55 25,55 C32,55 38,48 50,48 C62,48 68,55 75,55 C85,55 95,50 95,35 C95,20 90,10 80,10 Z"
                     fill="none"
-                    stroke="#626262"
+                    stroke="#787878"
                     strokeWidth="4"
                 />
                 <path
                     className="game-loader__dpad"
                     d="M22,24 h4 v4 h4 v4 h-4 v4 h-4 v-4 h-4 v-4 h4 Z"
-                    fill="#656565"
+                    fill="#787878"
                 />
                 <circle
                     className="game-loader__btn btn-1"

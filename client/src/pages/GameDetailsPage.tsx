@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import type { GameDetails, GameScreenshot } from '../types/games.types';
 import { fetchGameDetails, fetchGamesScreenshots } from '../api/games';
 
-import Loader from '../components/Loader';
-import ModalScreenshot from '../components/ModalScreenshot';
+import Loader from '../components/common/Loader';
+import ModalScreenshot from '../components/modal/ModalScreenshot';
 import Screenshots from '../components/Screenshots';
 import GamePageHero from '../components/GamePageHero';
 import axios from 'axios';
@@ -15,7 +15,7 @@ const GameDetailsPage = () => {
     const [loader, setLoader] = useState(true);
     const [screenshots, setScreenshots] = useState<GameScreenshot[]>([]);
     const [isModal, setIsModal] = useState<boolean>(false);
-    const [activeSrc, setActiveSrc] = useState<string>('');
+    const [activeIndex, setActiveIndex] = useState<number>(0);
     const [error, setError] = useState<string>('');
     const { id } = useParams();
 
@@ -53,9 +53,9 @@ const GameDetailsPage = () => {
         getGame();
     }, [id]);
 
-    const handleModal = (src: string) => {
+    const handleModal = (index: number) => {
         setIsModal(true);
-        setActiveSrc(src);
+        setActiveIndex(index);
     };
 
     return (
@@ -155,7 +155,8 @@ const GameDetailsPage = () => {
                 <ModalScreenshot
                     isModal={isModal}
                     setIsModal={setIsModal}
-                    activeSrc={activeSrc}
+                    activeIndex={activeIndex}
+                    screenshots={screenshots}
                 />
             )}
         </div>

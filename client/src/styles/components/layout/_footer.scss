@@ -1,9 +1,9 @@
-@use '../utils/mixins' as *;
-@use '../utils/variables' as *;
+@use '../../utils/mixins' as *;
+@use '../../utils/variables' as *;
 
 .footer {
-    background: #090909;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    background: $bg-body-color;
+    border-top: 1px solid $white-10;
     padding: 24px 0;
     padding-bottom: 36px;
     margin-top: auto;
@@ -33,7 +33,7 @@
 
     &__copy {
         font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.4);
+        color: $white-50;
 
         @include tablet {
             font-size: 0.85rem;

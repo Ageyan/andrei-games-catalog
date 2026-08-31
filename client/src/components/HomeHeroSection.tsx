@@ -1,6 +1,7 @@
 import { useFavorite } from '../context/FavoritesContext';
 
 import { IoLogoGameControllerA } from 'react-icons/io';
+
 interface HomeHeroSectionProps {
     searchTerm: string;
     handleSearch: (event: React.ChangeEvent<HTMLInputElement, Element>) => void;
@@ -45,7 +46,10 @@ const HomeHeroSection = ({
                 <h1 className="hero-section__title">Games Catalog</h1>
                 <input
                     className="hero-section__search-input"
-                    type="text"
+                    name="search"
+                    type="search"
+                    autoCapitalize="none"
+                    autoComplete="new-password"
                     placeholder="Enter the name of the game..."
                     value={searchTerm}
                     onChange={handleSearch}
