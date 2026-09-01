@@ -1,13 +1,24 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import type { GameDetails } from '../types/games.types';
+import type { GameDetails } from '../../types/games.types';
 
 interface GamePageHeroProps {
     game: GameDetails;
 }
 
 const GamePageHero = ({ game }: GamePageHeroProps) => {
+    const location = useLocation();
     const navigate = useNavigate();
+    const previousPath = location.state?.from;
+
+    const handleIsBack = () => {
+        if (previousPath) {
+            navigate(-1);
+        } else {
+            navigate('/');
+        }
+    };
+
     return (
         <section
             className="game-page__hero"
@@ -19,7 +30,7 @@ const GamePageHero = ({ game }: GamePageHeroProps) => {
                 <div className="game-page__hero-container">
                     <button
                         className="game-page__back-btn"
-                        onClick={() => navigate(-1)}
+                        onClick={handleIsBack}
                     >
                         <span>← Back to Catalog</span>
                     </button>

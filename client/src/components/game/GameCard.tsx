@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import type { Game } from '../types/games.types';
-import { useFavorite } from '../context/FavoritesContext';
+import type { Game } from '../../types/games.types';
+import { useFavorite } from '../../context/FavoritesContext';
 
 import { FaRegStar, FaStar } from 'react-icons/fa';
 
@@ -12,6 +12,7 @@ interface GameCardProps {
 
 const GameCard = ({ game, isFavorite }: GameCardProps) => {
     const { isAuthenticated, toggleFavorite } = useFavorite();
+    const location = useLocation();
 
     const handleLikeClick = (event: React.MouseEvent) => {
         event.preventDefault();
@@ -19,7 +20,11 @@ const GameCard = ({ game, isFavorite }: GameCardProps) => {
     };
 
     return (
-        <Link to={`/game/${game.id}`} className="game-card">
+        <Link
+            to={`/game/${game.id}`}
+            state={{ from: location.pathname }}
+            className="game-card"
+        >
             <button className="game-card__like-btn" onClick={handleLikeClick}>
                 {isFavorite && isAuthenticated ? <FaStar /> : <FaRegStar />}
             </button>

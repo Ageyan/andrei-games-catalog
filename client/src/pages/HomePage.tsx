@@ -7,14 +7,14 @@ import { fetchGames } from '../api/games';
 import { useDebounce } from '../hooks/useDebounce';
 import { useModalClose } from '../hooks/useModalClose';
 
-import GameCard from '../components/GameCard';
-import FeaturedGamesList from '../components/FeaturedGamesList';
-import Drawer from '../components/Drawer';
+import GameCard from '../components/game/GameCard';
+import FeaturedGamesList from '../components/game/FeaturedGamesList';
+import Drawer from '../components/layout/Drawer';
 import GenresContainer from '../components/filters/GenresContainer';
 import SortContainer from '../components/filters/SortContainer';
 import Toast from '../components/common/Toast';
 import Loader from '../components/common/Loader';
-import HomeHeroSection from '../components/HomeHeroSection';
+import HomeHeroSection from '../components/sections/HomeHeroSection';
 import ModalAuth from '../components/modal/ModalAuth';
 
 import { FaStar } from 'react-icons/fa';

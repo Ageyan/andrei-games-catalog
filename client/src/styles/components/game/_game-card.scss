@@ -1,5 +1,5 @@
-@use '../utils/mixins' as *;
-@use '../utils/variables' as *;
+@use '../../utils/mixins' as *;
+@use '../../utils/variables' as *;
 
 .game-card {
     position: relative;
@@ -42,6 +42,13 @@
         color: $accent-yellow;
         transition: transform 0.3s;
 
+        svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            fill: currentColor;
+        }
+
         &:hover {
             transform: scale(1.1);
         }
@@ -49,6 +56,11 @@
         @include tablet {
             width: 38px;
             height: 38px;
+
+            svg {
+                width: 22px;
+                height: 22px;
+            }
         }
 
         @include desktop {

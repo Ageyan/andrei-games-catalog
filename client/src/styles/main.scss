@@ -16,14 +16,14 @@
 @use './components/filters/genres-container';
 @use './components/filters/sort-container';
 
+@use './components/game/featured-games-list';
+@use './components/game/game-card';
+
 @use './components/layout/footer';
+@use './components/layout/mobile-drawer';
 
 @use './components/modal/modal-auth';
 @use './components/modal/modal-screenshot';
 
-@use './components/featured-games-list';
-@use './components/game-card';
-
-@use './components/hero-section';
-@use './components/mobile-drawer';
-@use './components/screenshots';
+@use './components/sections/hero-section';
+@use './components/sections/screenshots';

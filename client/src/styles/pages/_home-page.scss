@@ -61,10 +61,11 @@
         align-items: center;
         justify-content: center;
         background-color: $white-10;
-        border: 1px solid $white-50;
+        border: 1px solid $white-10;
         border-radius: 10px;
         cursor: pointer;
         color: $accent-yellow;
+        transition: color 0.3s ease-in-out;
 
         @include tablet {
             width: 78px;
@@ -72,6 +73,10 @@
 
         @include desktop {
             display: none;
+        }
+
+        &:hover {
+            background-color: $white-20;
         }
     }
 

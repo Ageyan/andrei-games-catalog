@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useFavorite } from '../context/FavoritesContext';
+import { useFavorite } from '../../context/FavoritesContext';
 
 import { MdDelete } from 'react-icons/md';
 

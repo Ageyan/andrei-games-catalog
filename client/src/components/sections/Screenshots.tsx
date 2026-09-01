@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 
-import type { GameDetails, GameScreenshot } from '../types/games.types';
+import type { GameDetails, GameScreenshot } from '../../types/games.types';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

@@ -1,4 +1,4 @@
-import { useFavorite } from '../context/FavoritesContext';
+import { useFavorite } from '../../context/FavoritesContext';
 
 import { IoLogoGameControllerA } from 'react-icons/io';
 

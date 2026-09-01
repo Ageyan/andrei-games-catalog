@@ -1,5 +1,5 @@
-@use '../utils/mixins' as *;
-@use '../utils/variables' as *;
+@use '../../utils/mixins' as *;
+@use '../../utils/variables' as *;
 
 .hero-section {
     width: 100%;
@@ -10,7 +10,7 @@
             $black-50 15%,
             $bg-color 100%
         ),
-        url('../../assets/bg-image.jpg');
+        url('../../../assets/bg-image.jpg');
     height: 30vh;
     min-height: 220px;
     background-size: cover;

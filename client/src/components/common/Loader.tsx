@@ -6,7 +6,7 @@ interface LoaderProps {
 
 export const Loader = ({ fullSize, gamePage, btn }: LoaderProps) => {
     const fullScreen = fullSize || gamePage;
-    const initialWidth = btn ? '40' : fullScreen ? '140' : '100';
+    const initialWidth = btn ? '40' : fullScreen ? '180' : '100';
 
     return (
         <div

@@ -1,6 +1,6 @@
-import { useFavorite } from '../context/FavoritesContext';
+import { useFavorite } from '../../context/FavoritesContext';
 
-import FeaturedGamesList from './FeaturedGamesList';
+import FeaturedGamesList from '../game/FeaturedGamesList';
 
 interface DrawerProps {
     isDrawerOpen: boolean;

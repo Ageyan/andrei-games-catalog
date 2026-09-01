@@ -6,8 +6,8 @@ import { fetchGameDetails, fetchGamesScreenshots } from '../api/games';
 
 import Loader from '../components/common/Loader';
 import ModalScreenshot from '../components/modal/ModalScreenshot';
-import Screenshots from '../components/Screenshots';
-import GamePageHero from '../components/GamePageHero';
+import Screenshots from '../components/sections/Screenshots';
+import GamePageHero from '../components/sections/GamePageHero';
 import axios from 'axios';
 
 const GameDetailsPage = () => {
