@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useFavorite } from '../../context/FavoritesContext';
 import type { ToastState } from '../../types/toast.types';
 import { login, register } from '../../api/auth';
+import { useModalClose } from '../../hooks/useModalClose';
 
 import Toast from '../common/Toast';
 import Loader from '../common/Loader';
@@ -25,6 +26,15 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
     });
 
     const { setIsAuthenticated } = useFavorite();
+
+    const handleClose = () => {
+        setIsAuthModal(false);
+        setUserName('');
+        setPassword('');
+        setIsLogin(isLogin);
+    };
+
+    useModalClose(isAuthModal, handleClose);
 
     const handlesSubmit = async (event: React.SubmitEvent) => {
         event.preventDefault();
@@ -103,16 +113,13 @@ export const ModalAuth = ({ isAuthModal, setIsAuthModal }: ModalAuthProps) => {
     return (
         <div
             className={`modal-auth ${isAuthModal ? 'show' : ''}`}
-            onClick={() => setIsAuthModal(false)}
+            onClick={handleClose}
         >
             <div
                 className="modal-auth__container"
                 onClick={e => e.stopPropagation()}
             >
-                <button
-                    className="modal-auth__close-btn"
-                    onClick={() => setIsAuthModal(false)}
-                >
+                <button className="modal-auth__close-btn" onClick={handleClose}>
                     X
                 </button>
                 <form className="modal-auth__form" onSubmit={handlesSubmit}>

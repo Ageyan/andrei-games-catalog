@@ -31,7 +31,7 @@ const FavoriteContext = createContext<FavoriteContextProps | null>(null);
 
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
     const [favorites, setFavorites] = useState<FavoriteGame[]>([]);
-    const [loader, setLoader] = useState<boolean>(false);
+    const [loader, setLoader] = useState<boolean>(true);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
         !!localStorage.getItem('token'),
     );
