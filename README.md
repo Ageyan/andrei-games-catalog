@@ -1,6 +1,8 @@
 # 🎮 Games Catalog (Full-Stack Application)
 
-A modern, responsive full-stack web application for discovering, searching, and saving your favorite video games. Built with a focus on clean UI/UX, robust state management, and scalable SCSS architecture.
+A modern, responsive full-stack web application for discovering, searching, and
+saving your favorite video games. Built with a focus on clean UI/UX, robust
+state management, and scalable SCSS architecture.
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -13,19 +15,29 @@ A modern, responsive full-stack web application for discovering, searching, and 
 
 ## 📌 Features
 
-- **🔐 User Authentication:** Secure registration and login flow with JWT token management.
-- **🔍 Smart Search & Filtering:** Dynamic game search and sorting capabilities without page reloads.
-- **❤️ Favorites System:** Authenticated users can add or remove games from their personal collection (saved to the database).
-- **📱 Fully Responsive UI:** Carefully crafted adaptive design for Mobile, Tablet, and Desktop using custom SCSS mixins and variables.
-- **🚀 Optimized UX:** 
-  - Custom loaders and skeleton states (preventing FOUC).
-  - Toast notifications for error handling and success states.
-  - Smart routing with automatic `ScrollToTop` handling.
-  - Interactive UI components (Drawers, Modals, Swiper carousels).
+- **🔐 User Authentication:** Secure registration and login flow with JWT token
+  management.
+- **🔍 Smart Search & Filtering:** Dynamic game search and sorting capabilities
+  without page reloads.
+- **❤️ Favorites System:** Authenticated users can add or remove games from
+  their personal collection (saved to the database).
+- **📱 Fully Responsive UI:** Carefully crafted adaptive design for Mobile,
+  Tablet, and Desktop using custom SCSS mixins and variables.
+- **🚀 Optimized UX:**
+    - Custom loaders and skeleton states (preventing FOUC).
+    - Toast notifications for error handling and success states.
+    - Smart routing with automatic `ScrollToTop` handling.
+    - Interactive UI components (Drawers, Modals, Swiper carousels).
+
+## 🌍 Live Demo
+
+**Check out the live application here:**
+[Open Live App](https://andrei-games-catalog.vercel.app)
 
 ## 🛠 Tech Stack
 
 ### Frontend
+
 - **Core:** React 18, TypeScript, Vite
 - **Routing:** React Router v6
 - **Styling:** SCSS (BEM methodology, advanced variables architecture, mixins)
@@ -33,6 +45,7 @@ A modern, responsive full-stack web application for discovering, searching, and 
 - **UI Libraries:** React Icons, Swiper
 
 ### Backend
+
 - **Core:** Node.js, Express, TypeScript (CommonJS)
 - **Database:** MongoDB
 - **Authentication:** JSON Web Tokens (JWT), bcrypt
@@ -42,9 +55,12 @@ A modern, responsive full-stack web application for discovering, searching, and 
 
 ## 🏗 Architecture & Best Practices
 
-- **Domain-Based Folder Structure:** Components are logically grouped by feature (e.g., `layout/`, `game/`, `sections/`, `common/`) for high maintainability.
-- **Design System:** Extracted all hardcoded colors, opacities, and breakpoints into a centralized `_variables.scss` file.
-- **Custom Hooks:** Extracted reusable logic into hooks like `useModalClose` (handling Escape key and scroll lock), `useDebounce`, and `useScrollToTop`.
+- **Domain-Based Folder Structure:** Components are logically grouped by feature
+  (e.g., `layout/`, `game/`, `sections/`, `common/`) for high maintainability.
+- **Design System:** Extracted all hardcoded colors, opacities, and breakpoints
+  into a centralized `_variables.scss` file.
+- **Custom Hooks:** Extracted reusable logic into hooks like `useModalClose`
+  (handling Escape key and scroll lock), `useDebounce`, and `useScrollToTop`.
 
 ---
 
@@ -67,6 +83,7 @@ A modern, responsive full-stack web application for discovering, searching, and 
 To run this project locally, follow these steps:
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 - Git (configured with SSH recommended)
@@ -93,22 +110,25 @@ cd server
 npm install
 ```
 
-4. **Set up environment variables:** Create `.env` files in both `client` and `server`
-   directories based on `.env.example`.
+4. **Set up environment variables:** Create `.env` files in both `client` and
+   `server` directories based on `.env.example`.
 
 5. **Start the development servers:**
 
 Terminal 1 (Backend):
+
 ```bash
 cd server
 npm run dev
 ```
 
 Terminal 2 (Frontend):
+
 ```bash
 cd client
 npm run dev
 ```
 
 ### 👨‍💻 Author
+
 Andrey - Junior Frontend Developer - [GitHub Profile](https://github.com/Ageyan)
